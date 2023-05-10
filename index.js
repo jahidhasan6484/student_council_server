@@ -124,6 +124,41 @@ async function run() {
             }
         })
 
+        app.post('/register', async (req, res) => {
+            try {
+                const { password } = req.body;
+
+                bcrypt.hash(password, saltRounds, async (err, hash) => {
+                    if (err) {
+                        res.send({
+                            status: "fail",
+                            message: "Something went wrong"
+                        })
+                    } else if (hash) {
+                        const newData = {
+                            ...req.body,
+                            password: hash
+                        }
+
+                        await userCollection.insertOne(newData)
+
+                        res.send({
+                            status: "success",
+                            message: "Successfully"
+                        })
+                    }
+
+                })
+
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Something went wrong"
+                })
+            }
+        })
+
     }
     finally {
         // await client.close();
