@@ -1,6 +1,8 @@
 const express = require('express');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const ObjectId = require('mongodb').ObjectId;
 const app = express();
 require('dotenv').config();
@@ -17,7 +19,8 @@ async function run() {
     try {
         await client.connect();
         const database = client.db("student_council");
-        const contactCollection = database.collection("contact");
+        const userCollection = database.collection("user");
+        const contactCollection = database.collection("contactForm");
 
         app.post("/contact/applyNow", async (req, res) => {
             try {
@@ -30,6 +33,93 @@ async function run() {
                 res.send({
                     status: "fail",
                     message: "Something went wrong"
+                })
+            }
+        })
+
+        // app.post('/admin', async (req, res) => {
+        //     try {
+        //         const { userName, password } = req.body;
+
+
+        //         bcrypt.hash(password, saltRounds, async (err, hash) => {
+        //             if (err) {
+        //                 res.send({
+        //                     status: "fail",
+        //                     message: "Something went wrong"
+        //                 })
+        //             } else if (hash) {
+        //                 const newData = {
+        //                     ...req.body,
+        //                     password: hash
+        //                 }
+
+        //                 await userCollection.insertOne(newData)
+
+        //                 res.send({
+        //                     status: "success",
+        //                     message: "We will communicate with you very soon"
+        //                 })
+        //             }
+
+        //         })
+
+
+        //     } catch {
+        //         res.send({
+        //             status: "fail",
+        //             message: "Something went wrong"
+        //         })
+        //     }
+        // })
+
+        app.get("/admin", async (req, res) => {
+            try {
+                const result = contactCollection.find({})
+                const cursor = await result.toArray()
+                res.send({
+                    status: "success",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail"
+                })
+            }
+        })
+
+        app.get('/login', async (req, res) => {
+            try {
+                const { userName, password } = req.query;
+
+                const user = await userCollection.findOne({ userName: userName })
+
+                if (!user) {
+                    res.send({
+                        status: "fail",
+                        message: "No user found"
+                    })
+                } else if (user) {
+                    const match = await bcrypt.compare(password, user.password);
+                    if (match) {
+                        res.send({
+                            status: "success",
+                            message: "Login successfull",
+                            data: user
+                        })
+                    } else {
+                        res.send({
+                            status: "fail",
+                            message: "Invalid password"
+                        })
+                    }
+                }
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Something went wrong!"
                 })
             }
         })
