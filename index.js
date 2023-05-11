@@ -79,9 +79,39 @@ async function run() {
                 const cursor = await result.toArray()
                 res.send({
                     status: "success",
-                    data: cursor
+                    data: cursor.reverse()
                 })
 
+            } catch {
+                res.send({
+                    status: "fail"
+                })
+            }
+        })
+
+        app.get('/students', async(req, res) => {
+            try {
+                const students = userCollection.find({role: "student"})
+                const cursor = await students.toArray()
+                res.send({
+                    status: "success",
+                    data: cursor.reverse()
+                })
+            } catch {
+                res.send({
+                    status: "fail"
+                })
+            }
+        })
+
+        app.get('/counselors', async(req, res) => {
+            try {
+                const students = userCollection.find({role: "counselor"})
+                const cursor = await students.toArray()
+                res.send({
+                    status: "success",
+                    data: cursor.reverse()
+                })
             } catch {
                 res.send({
                     status: "fail"
