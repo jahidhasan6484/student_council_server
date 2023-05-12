@@ -4,6 +4,12 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const ObjectId = require('mongodb').ObjectId;
+
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); // specify the directory to store uploaded files
+
+
+
 const app = express();
 require('dotenv').config();
 const port = process.env.PORT || 5000;
@@ -21,6 +27,30 @@ async function run() {
         const database = client.db("student_council");
         const userCollection = database.collection("user");
         const contactCollection = database.collection("contactForm");
+        const contentCollection = database.collection("content");
+
+        app.post('/services/upload', upload.single('image'), async (req, res) => {
+            try {
+                const data = req.body;
+                const image = req.file;
+
+                await contentCollection.insertOne({ ...data, image })
+                const getAllService = contentCollection.find({})
+                const cursor = await getAllService.toArray();
+
+                res.send({
+                    status: "success",
+                    data: cursor,
+                    message: "Service uploaded successfully!"
+                });
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to upload service!"
+                })
+            }
+        });
+
 
         app.post("/contact/applyNow", async (req, res) => {
             try {
@@ -89,9 +119,9 @@ async function run() {
             }
         })
 
-        app.get('/students', async(req, res) => {
+        app.get('/students', async (req, res) => {
             try {
-                const students = userCollection.find({role: "student"})
+                const students = userCollection.find({ role: "student" })
                 const cursor = await students.toArray()
                 res.send({
                     status: "success",
@@ -104,9 +134,9 @@ async function run() {
             }
         })
 
-        app.get('/counselors', async(req, res) => {
+        app.get('/counselors', async (req, res) => {
             try {
-                const students = userCollection.find({role: "counselor"})
+                const students = userCollection.find({ role: "counselor" })
                 const cursor = await students.toArray()
                 res.send({
                     status: "success",
