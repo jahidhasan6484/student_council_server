@@ -27,29 +27,30 @@ async function run() {
         const database = client.db("student_council");
         const userCollection = database.collection("user");
         const contactCollection = database.collection("contactForm");
-        const contentCollection = database.collection("content");
+        const featureCollection = database.collection("features");
+        // const contentCollection = database.collection("content");
 
-        app.post('/services/upload', upload.single('image'), async (req, res) => {
-            try {
-                const data = req.body;
-                const image = req.file;
+        // app.post('/services/upload', upload.single('image'), async (req, res) => {
+        //     try {
+        //         const data = req.body;
+        //         const image = req.file;
 
-                await contentCollection.insertOne({ ...data, image })
-                const getAllService = contentCollection.find({})
-                const cursor = await getAllService.toArray();
+        //         await contentCollection.insertOne({ ...data, image })
+        //         const getAllService = contentCollection.find({})
+        //         const cursor = await getAllService.toArray();
 
-                res.send({
-                    status: "success",
-                    data: cursor,
-                    message: "Service uploaded successfully!"
-                });
-            } catch {
-                res.send({
-                    status: "fail",
-                    message: "Failed to upload service!"
-                })
-            }
-        });
+        //         res.send({
+        //             status: "success",
+        //             data: cursor,
+        //             message: "Service uploaded successfully!"
+        //         });
+        //     } catch {
+        //         res.send({
+        //             status: "fail",
+        //             message: "Failed to upload service!"
+        //         })
+        //     }
+        // });
 
 
         app.post("/contact/applyNow", async (req, res) => {
@@ -219,6 +220,65 @@ async function run() {
             }
         })
 
+        app.post("/feature", async (req, res) => {
+            try {
+
+                await featureCollection.insertOne(req.body)
+                const result = featureCollection.find({})
+                const cursor = await result.toArray();
+
+                res.send({
+                    status: "success",
+                    message: "Feature added successfully",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to add feature"
+                })
+            }
+        })
+
+        app.get("/feature", async (req, res) => {
+            try {
+                const result = featureCollection.find({})
+                const cursor = await result.toArray();
+
+                res.send({
+                    status: "success",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail"
+                })
+            }
+        })
+
+        app.delete("/feature", async (req, res) => {
+            try {
+                const { id } = req.query;
+
+                await featureCollection.deleteOne({ _id: new ObjectId(id) })
+
+                const result = featureCollection.find({})
+                const cursor = await result.toArray();
+
+                res.send({
+                    status: "success",
+                    message: "Feature deleted successfully",
+                    data: cursor
+                })
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to delete",
+                })
+            }
+        })
     }
     finally {
         // await client.close();
