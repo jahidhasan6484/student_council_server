@@ -1,12 +1,12 @@
 const express = require('express');
+const multer = require('multer');
+const bodyParser = require('body-parser');
+const upload = multer({ dest: 'uploads/' })
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const ObjectId = require('mongodb').ObjectId;
-
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' }); // specify the directory to store uploaded files
 
 
 
@@ -16,7 +16,11 @@ const port = process.env.PORT || 5000;
 
 //Middleware
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(express.json());
+
+app.use("/uploads", express.static("uploads"))
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@teamproject.1ksrmxp.mongodb.net/`
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -28,30 +32,49 @@ async function run() {
         const userCollection = database.collection("user");
         const contactCollection = database.collection("contactForm");
         const featureCollection = database.collection("features");
-        // const contentCollection = database.collection("content");
+        const serviceCollection = database.collection("services");
 
-        // app.post('/services/upload', upload.single('image'), async (req, res) => {
-        //     try {
-        //         const data = req.body;
-        //         const image = req.file;
+        app.post('/service', upload.single('image'), async (req, res) => {
+            try {
+                const file = req.file;
+                const { filename, path } = file;
 
-        //         await contentCollection.insertOne({ ...data, image })
-        //         const getAllService = contentCollection.find({})
-        //         const cursor = await getAllService.toArray();
+                await serviceCollection.insertOne({ ...req.body, filename, path })
 
-        //         res.send({
-        //             status: "success",
-        //             data: cursor,
-        //             message: "Service uploaded successfully!"
-        //         });
-        //     } catch {
-        //         res.send({
-        //             status: "fail",
-        //             message: "Failed to upload service!"
-        //         })
-        //     }
-        // });
+                const result = serviceCollection.find({})
+                const cursor = await result.toArray()
 
+                res.send({
+                    status: "success",
+                    message: "Service added successfully",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to add service"
+                })
+            }
+        });
+
+        app.get('/service', async (req, res) => {
+            try {
+                const result = serviceCollection.find({})
+                const cursor = await result.toArray()
+
+                res.send({
+                    status: "success",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Something went wrong"
+                })
+            }
+        })
 
         app.post("/contact/applyNow", async (req, res) => {
             try {
