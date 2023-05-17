@@ -33,6 +33,7 @@ async function run() {
         const contactCollection = database.collection("contactForm");
         const featureCollection = database.collection("features");
         const serviceCollection = database.collection("services");
+        const heroContentCollection = database.collection("hero");
 
         app.post('/service', upload.single('image'), async (req, res) => {
             try {
@@ -72,6 +73,70 @@ async function run() {
                 res.send({
                     status: "fail",
                     message: "Something went wrong"
+                })
+            }
+        })
+
+        app.post('/hero', upload.single('image'), async (req, res) => {
+            try {
+                const file = req.file;
+                const { filename, path } = file;
+
+                await heroContentCollection.insertOne({ ...req.body, filename, path })
+
+                const result = heroContentCollection.find({})
+                const cursor = await result.toArray()
+
+                res.send({
+                    status: "success",
+                    message: "Hero content added successfully",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to add hero content"
+                })
+            }
+        });
+
+        app.get('/hero', async (req, res) => {
+            try {
+                const result = heroContentCollection.find({})
+                const cursor = await result.toArray()
+
+                res.send({
+                    status: "success",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Something went wrong"
+                })
+            }
+        })
+
+        app.delete("/hero", async (req, res) => {
+            try {
+                const { id } = req.query;
+
+                await heroContentCollection.deleteOne({ _id: new ObjectId(id) })
+
+                const result = heroContentCollection.find({})
+                const cursor = await result.toArray();
+
+                res.send({
+                    status: "success",
+                    message: "Hero content deleted successfully",
+                    data: cursor
+                })
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to delete",
                 })
             }
         })
