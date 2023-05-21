@@ -34,6 +34,7 @@ async function run() {
         const featureCollection = database.collection("features");
         const serviceCollection = database.collection("services");
         const heroContentCollection = database.collection("hero");
+        const blogAndNewsCollection = database.collection("blogAndNews");
 
         app.post('/service', upload.single('image'), async (req, res) => {
             try {
@@ -131,6 +132,128 @@ async function run() {
                 res.send({
                     status: "success",
                     message: "Hero content deleted successfully",
+                    data: cursor
+                })
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to delete",
+                })
+            }
+        })
+
+        app.post('/blogAndNews', upload.single('image'), async (req, res) => {
+            try {
+                const file = req.file;
+                const { filename, path } = file;
+
+                await blogAndNewsCollection.insertOne({ ...req.body, filename, path })
+
+                const result = blogAndNewsCollection.find({type: req.body.type})
+                const cursor = await result.toArray()
+
+                res.send({
+                    status: "success",
+                    message: "Blog and News content added successfully",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to add Blog and News content"
+                })
+            }
+        });
+
+        app.get('/blogAndNews', async (req, res) => {
+            try {
+                const result = blogAndNewsCollection.find({})
+                const cursor = await result.toArray()
+
+                res.send({
+                    status: "success",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Something went wrong"
+                })
+            }
+        })
+
+        app.get('/blog', async (req, res) => {
+            try {
+                const result = blogAndNewsCollection.find({type: "blog"})
+                const cursor = await result.toArray()
+
+                res.send({
+                    status: "success",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Something went wrong"
+                })
+            }
+        })
+
+        app.get('/news', async (req, res) => {
+            try {
+                const result = blogAndNewsCollection.find({type: "news"})
+                const cursor = await result.toArray()
+
+                res.send({
+                    status: "success",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Something went wrong"
+                })
+            }
+        })
+
+        app.delete("/blog", async (req, res) => {
+            try {
+                const { id } = req.query;
+
+                await blogAndNewsCollection.deleteOne({ _id: new ObjectId(id) })
+
+                const result = blogAndNewsCollection.find({type: "blog"})
+                const cursor = await result.toArray();
+
+                res.send({
+                    status: "success",
+                    message: "Guide and Resource content deleted successfully",
+                    data: cursor
+                })
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to delete",
+                })
+            }
+        })
+
+        app.delete("/news", async (req, res) => {
+            try {
+                const { id } = req.query;
+
+                await blogAndNewsCollection.deleteOne({ _id: new ObjectId(id) })
+
+                const result = blogAndNewsCollection.find({type: "news"})
+                const cursor = await result.toArray();
+
+                res.send({
+                    status: "success",
+                    message: "News deleted successfully",
                     data: cursor
                 })
             } catch {
