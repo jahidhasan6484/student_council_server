@@ -149,7 +149,7 @@ async function run() {
 
                 await blogAndNewsCollection.insertOne({ ...req.body, filename, path })
 
-                const result = blogAndNewsCollection.find({type: req.body.type})
+                const result = blogAndNewsCollection.find({ type: req.body.type })
                 const cursor = await result.toArray()
 
                 res.send({
@@ -186,7 +186,7 @@ async function run() {
 
         app.get('/blog', async (req, res) => {
             try {
-                const result = blogAndNewsCollection.find({type: "blog"})
+                const result = blogAndNewsCollection.find({ type: "blog" })
                 const cursor = await result.toArray()
 
                 res.send({
@@ -202,14 +202,50 @@ async function run() {
             }
         })
 
+        app.get('/blog/:id', async (req, res) => {
+            try {
+                const id = req.params.id;
+                const filter = { _id: new ObjectId(id) }
+                const result = await blogAndNewsCollection.findOne(filter)
+                res.send({
+                    status: "success",
+                    data: result
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Something went wrong"
+                })
+            }
+        })
+
         app.get('/news', async (req, res) => {
             try {
-                const result = blogAndNewsCollection.find({type: "news"})
+                const result = blogAndNewsCollection.find({ type: "news" })
                 const cursor = await result.toArray()
 
                 res.send({
                     status: "success",
                     data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Something went wrong"
+                })
+            }
+        })
+
+        app.get('/news/:id', async (req, res) => {
+            try {
+                const id = req.params.id;
+                const filter = { _id: new ObjectId(id) }
+                const result = await blogAndNewsCollection.findOne(filter)
+                res.send({
+                    status: "success",
+                    data: result
                 })
 
             } catch {
@@ -226,7 +262,7 @@ async function run() {
 
                 await blogAndNewsCollection.deleteOne({ _id: new ObjectId(id) })
 
-                const result = blogAndNewsCollection.find({type: "blog"})
+                const result = blogAndNewsCollection.find({ type: "blog" })
                 const cursor = await result.toArray();
 
                 res.send({
@@ -248,7 +284,7 @@ async function run() {
 
                 await blogAndNewsCollection.deleteOne({ _id: new ObjectId(id) })
 
-                const result = blogAndNewsCollection.find({type: "news"})
+                const result = blogAndNewsCollection.find({ type: "news" })
                 const cursor = await result.toArray();
 
                 res.send({
