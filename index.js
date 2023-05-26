@@ -35,6 +35,7 @@ async function run() {
         const serviceCollection = database.collection("services");
         const heroContentCollection = database.collection("hero");
         const blogAndNewsCollection = database.collection("blogAndNews");
+        const countryWithUniversityCollection = database.collection("countryWithUniversity");
 
         app.post('/service', upload.single('image'), async (req, res) => {
             try {
@@ -526,6 +527,74 @@ async function run() {
                 })
             }
         })
+
+        app.post('/country', upload.single('image'), async (req, res) => {
+            try {
+                const file = req.file;
+                const { filename, path } = file;
+
+                await countryWithUniversityCollection.insertOne({ ...req.body, filename, path })
+
+                const result = countryWithUniversityCollection.find({})
+                const cursor = await result.toArray()
+
+                res.send({
+                    status: "success",
+                    message: "Country added successfully",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to add country"
+                })
+            }
+        });
+
+        app.get('/country', async (req, res) => {
+            try {
+                const result = countryWithUniversityCollection.find({}).project({ country: 1 });
+                const cursor = await result.toArray();
+
+                res.send({
+                    status: "success",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail"
+                })
+            }
+        })
+
+        app.post('/university', upload.single('image'), async (req, res) => {
+            try {
+                const file = req.file;
+                const { filename, path } = file;
+
+                await countryWithUniversityCollection.insertOne({ ...req.body, filename, path })
+
+                const result = countryWithUniversityCollection.find({})
+                const cursor = await result.toArray()
+
+                // const previousData = await countryWithUniversityCollection.findOne({ country: country })
+
+                console.log("PRE", previousData)
+                res.send({
+                    status: "success",
+                    message: "Country added successfully",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to add country"
+                })
+            }
+        });
     }
     finally {
         // await client.close();
