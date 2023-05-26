@@ -1,31 +1,35 @@
 const { default: mongoose } = require("mongoose");
 
-const userSchema = mongoose.Schema({
-    fullName: {
+const blogAndNewsSchema = mongoose.Schema({
+    title: {
         type: String,
         require: true
     },
-    email: {
+    description: {
         type: String,
         require: true
     },
-    phoneNumber: {
+    type: {
         type: String,
         require: true
     },
-    userName: {
+    date: {
         type: String,
         require: true
     },
-    password: {
+    month: {
         type: String,
         require: true
     },
-    role: {
+    year: {
         type: String,
         require: true
     },
-    status: {
+    filename: {
+        type: String,
+        require: true
+    },
+    path: {
         type: String,
         require: true
     },
@@ -35,5 +39,5 @@ const userSchema = mongoose.Schema({
     }
 );
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+const BlogAndNews = mongoose.model("blogAndNews", blogAndNewsSchema);
+module.exports = BlogAndNews;
