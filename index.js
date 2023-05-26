@@ -150,7 +150,7 @@ async function run() {
 
                 await blogAndNewsCollection.insertOne({ ...req.body, filename, path })
 
-                const result = blogAndNewsCollection.find({type: req.body.type})
+                const result = blogAndNewsCollection.find({ type: req.body.type })
                 const cursor = await result.toArray()
 
                 res.send({
@@ -187,7 +187,7 @@ async function run() {
 
         app.get('/blog', async (req, res) => {
             try {
-                const result = blogAndNewsCollection.find({type: "blog"})
+                const result = blogAndNewsCollection.find({ type: "blog" })
                 const cursor = await result.toArray()
 
                 res.send({
@@ -205,7 +205,7 @@ async function run() {
 
         app.get('/news', async (req, res) => {
             try {
-                const result = blogAndNewsCollection.find({type: "news"})
+                const result = blogAndNewsCollection.find({ type: "news" })
                 const cursor = await result.toArray()
 
                 res.send({
@@ -227,7 +227,7 @@ async function run() {
 
                 await blogAndNewsCollection.deleteOne({ _id: new ObjectId(id) })
 
-                const result = blogAndNewsCollection.find({type: "blog"})
+                const result = blogAndNewsCollection.find({ type: "blog" })
                 const cursor = await result.toArray();
 
                 res.send({
@@ -249,7 +249,7 @@ async function run() {
 
                 await blogAndNewsCollection.deleteOne({ _id: new ObjectId(id) })
 
-                const result = blogAndNewsCollection.find({type: "news"})
+                const result = blogAndNewsCollection.find({ type: "news" })
                 const cursor = await result.toArray();
 
                 res.send({
@@ -502,6 +502,50 @@ async function run() {
                 const result = countryWithUniversityCollection.find({})
                 const cursor = await result.toArray()
 
+                res.send({
+                    status: "success",
+                    message: "Country added successfully",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail",
+                    message: "Failed to add country"
+                })
+            }
+        });
+
+        app.get('/country', async (req, res) => {
+            try {
+                const result = countryWithUniversityCollection.find({}).project({ country: 1 });
+                const cursor = await result.toArray();
+
+                res.send({
+                    status: "success",
+                    data: cursor
+                })
+
+            } catch {
+                res.send({
+                    status: "fail"
+                })
+            }
+        })
+
+        app.post('/university', upload.single('image'), async (req, res) => {
+            try {
+                const file = req.file;
+                const { filename, path } = file;
+
+                await countryWithUniversityCollection.insertOne({ ...req.body, filename, path })
+
+                const result = countryWithUniversityCollection.find({})
+                const cursor = await result.toArray()
+
+                // const previousData = await countryWithUniversityCollection.findOne({ country: country })
+
+                console.log("PRE", previousData)
                 res.send({
                     status: "success",
                     message: "Country added successfully",
