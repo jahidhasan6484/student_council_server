@@ -17,6 +17,8 @@ const updatePostToDB = async (_id, _newData) => {
         new: true,
         runValidators: true,
     });
+
+    return await BlogAndNews.find({});
 }
 
 const deletePostByIdFromDB = async (_id) => {

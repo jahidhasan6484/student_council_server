@@ -21,7 +21,7 @@ const createPost = async (req, res) => {
 const getBlogAndNews = async (req, res) => {
     try {
         const data = await getBlogAndNewsFromDB()
-        
+
         res.send({
             status: "success",
             data: data
@@ -54,11 +54,17 @@ const updatePost = async (req, res) => {
     const data = req.body;
     try {
         const result = await updatePostToDB(id, data)
-        console.log("Result: ", result)
+
+        res.send({
+            status: "success",
+            message: "Post updated successfully",
+            data: result
+        })
+
     } catch {
         res.send({
             status: "fail",
-            message: "Failed to update post"
+            message: "Failed to update post",
         })
     }
 }
