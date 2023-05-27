@@ -8,7 +8,7 @@ const getContactRequestFromDB = async () => {
     return await Contacts.find({}).exec();
 }
 
-const getTodayContactRequestFromDB = async (req, res) => {
+const getTodayContactRequestFromDB = async () => {
     const today = new Date();
 
     const todayQuery = {
@@ -22,8 +22,13 @@ const getTodayContactRequestFromDB = async (req, res) => {
     return await Contacts.find(todayQuery).exec();
 }
 
+const getByReferenceFromDB = async (_ref) => {
+    return await Contacts.find({reference: _ref})
+}
+
 module.exports = {
     insertContactRequestToDB,
     getContactRequestFromDB,
-    getTodayContactRequestFromDB
+    getTodayContactRequestFromDB,
+    getByReferenceFromDB
 }
