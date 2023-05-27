@@ -72,6 +72,10 @@ const contactsSchema = mongoose.Schema({
     year: {
         type: Number,
         required: true
+    },
+    reference: {
+        type: String,
+        required: true
     }
 },
     {

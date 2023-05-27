@@ -1,4 +1,4 @@
-const { insertContactRequestToDB, getContactRequestFromDB, getTodayContactRequestFromDB } = require("./contact.service")
+const { insertContactRequestToDB, getContactRequestFromDB, getTodayContactRequestFromDB, getByReferenceFromDB } = require("./contact.service")
 
 const contactRequest = async (req, res) => {
     const data = req.body;
@@ -50,8 +50,26 @@ const getTodayContactRequest = async (req, res) => {
     }
 }
 
+const getByReference = async (req, res) => {
+    const { ref } = req.params;
+    try {
+        const eventRef = await getByReferenceFromDB(ref)
+
+        res.send({
+            status: "success",
+            data: eventRef
+        })
+    } catch {
+        res.send({
+            status: "fail",
+            message: "Failed to load event data"
+        })
+    }
+}
+
 module.exports = {
     contactRequest,
     getContactRequest,
-    getTodayContactRequest
+    getTodayContactRequest,
+    getByReference
 }
