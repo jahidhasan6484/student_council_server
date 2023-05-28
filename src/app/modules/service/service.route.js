@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/", insertService)
 router.get("/", getServices)
 router.get("/:id", getServiceByID)
-router.patch("/update/:id", updateService)
-router.delete("/delete/:id", deleteService)
+router.patch("/:id", updateService)
+router.delete("/:id", deleteService)
 
 module.exports = router;
