@@ -58,11 +58,30 @@
 ### Country:
 {
   "countryName": "Singapore",
-  "subtitle": "Such diversity has enabled Singapore to attract international students...",
+  "subtitle": "Discover the beauty of Singapore",
   "imageURL": "https://example.com/singapore-image.jpg",
-  "requirements": ["Valid passport", "Student visa", "Proof of financial support"],
-  "documents": ["Transcripts", "Letter of recommendation", "English proficiency test results"]
+  "requirements": [
+    {
+      "question": "What is the minimum age requirement for studying in Singapore?",
+      "answer": "The minimum age requirement is 17 years old."
+    },
+    {
+      "question": "Do I need a visa to study in Singapore?",
+      "answer": "Yes, international students need a valid student visa."
+    }
+  ],
+  "documents": [
+    {
+      "question": "What documents are required for the application process?",
+      "answer": "Documents such as academic transcripts, passport copy, and proof of English proficiency are usually required."
+    },
+    {
+      "question": "Are there any specific health-related documents needed?",
+      "answer": "A medical examination report may be required for some programs."
+    }
+  ]
 }
+
 
 
 ### University:
