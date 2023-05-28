@@ -53,3 +53,13 @@
   "description": "Student Council has an exceptional working relationship with hundreds ...",
   "path": "uploads/ebcfee206b5ce2640ed242a711b1d781"
 }
+
+
+### Country:
+{
+  "countryName": "Singapore",
+  "subtitle": "Such diversity has enabled Singapore to attract international students...",
+  "imageURL": "https://example.com/singapore-image.jpg",
+  "requirements": ["Valid passport", "Student visa", "Proof of financial support"],
+  "documents": ["Transcripts", "Letter of recommendation", "English proficiency test results"]
+}

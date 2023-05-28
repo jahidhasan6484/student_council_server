@@ -72,12 +72,12 @@ const updatePost = async (req, res) => {
 const deletePost = async (req, res) => {
     const { id } = req.params;
     try {
-        const updatedPost = await deletePostByIdFromDB(id)
+        const remainingPost = await deletePostByIdFromDB(id)
 
         res.send({
             status: "success",
             message: "Post deleted successfully",
-            data: updatedPost
+            data: remainingPost
         })
     } catch {
         res.send({

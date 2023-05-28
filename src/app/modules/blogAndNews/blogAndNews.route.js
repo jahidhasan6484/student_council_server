@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.get("/", getBlogAndNews)
 router.get("/:type", getBlogAndNewsByType)
-router.post("/post", createPost)
-router.patch("/update/:id", updatePost)
-router.delete("/delete/:id", deletePost)
+router.post("/", createPost)
+router.patch("/:id", updatePost)
+router.delete("/:id", deletePost)
 
 module.exports = router;
