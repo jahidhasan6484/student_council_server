@@ -63,3 +63,18 @@
   "requirements": ["Valid passport", "Student visa", "Proof of financial support"],
   "documents": ["Transcripts", "Letter of recommendation", "English proficiency test results"]
 }
+
+
+### University:
+{
+  "countryName": "Singapore",
+  "universities": [
+    {
+      "name": "National University of Singapore",
+      "address": "21 Lower Kent Ridge Rd, Singapore",
+      "ranking": 1,
+      "officialWebsite": "https://www.nus.edu.sg/",
+      "imageURL": "https://example.com/nus-image.jpg"
+    }
+  ]
+}
