@@ -107,3 +107,17 @@
 "imageURL": "https://example.com/profile.jpg",
 "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 }
+
+### Multiple Image Upload Function:
+
+const handleImageUpload = (event) => {
+const formData = new FormData();
+console.log(event.target.files);
+console.log(event.target.files.length);
+
+for (let i = 0; i < event.target.files.length; i++) {
+formData.append("images", event.target.files[i]);
+}
+
+MultipleImageUpload(formData, setSelectedFiles);
+};
