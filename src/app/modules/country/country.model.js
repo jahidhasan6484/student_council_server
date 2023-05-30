@@ -13,14 +13,26 @@ const countrySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    requirements: {
-        type: [{}],
-        required: true
-    },
-    documents: {
-        type: [{}],
-        required: true
-    }
+    requirements: [{
+        question: {
+            type: String,
+            require: true
+        },
+        answer: {
+            type: String,
+            require: true
+        }
+    }],
+    documents: [{
+        question: {
+            type: String,
+            require: true
+        },
+        answer: {
+            type: String,
+            require: true
+        }
+    }],
 },
     {
         timestamps: true,

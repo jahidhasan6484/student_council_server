@@ -13,7 +13,7 @@ const insertCountry = async (req, res) => {
             })
         }
 
-        await insertCountryToDB(data)
+        const updatedData = await insertCountryToDB(data)
 
         res.send({
             status: "success",
