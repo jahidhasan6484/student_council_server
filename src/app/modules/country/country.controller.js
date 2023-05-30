@@ -9,7 +9,7 @@ const insertCountry = async (req, res) => {
         if (exist) {
             res.send({
                 status: "fail",
-                message: "Provide country alreay exist"
+                message: "Provided country already exist"
             })
         }
 
@@ -17,7 +17,7 @@ const insertCountry = async (req, res) => {
 
         res.send({
             status: "success",
-            message: "Counry added successfully",
+            message: "Country added successfully",
         })
     } catch {
         res.send({

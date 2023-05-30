@@ -13,12 +13,12 @@ const countrySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    requirements : {
-        type: [String],
+    requirements: {
+        type: [{}],
         required: true
     },
     documents: {
-        type: [String],
+        type: [{}],
         required: true
     }
 },
