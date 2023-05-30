@@ -2,6 +2,8 @@ const Country = require("./country.model")
 
 const insertCountryToDB = async (_data) => {
     await Country.create(_data)
+
+    return await Country.find({}).exec();
 }
 
 const getCountryFromDB = async () => {
