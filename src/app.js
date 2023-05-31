@@ -13,6 +13,7 @@ const testimonialRoutes = require("./app/modules/testimonial/testimonial.route")
 const whyUsRoutes = require("./app/modules/whyUs/whyUs.route");
 const sliderRoutes = require("./app/modules/slider/slider.route");
 const aboutRoutes = require("./app/modules/about/about.route");
+const partnerRoutes = require("./app/modules/partner/partner.route");
 
 const uploadFileRoutes = require("./app/modules/uploadFile/uploadFile.route");
 
@@ -33,6 +34,7 @@ app.use("/api/v1/testimonial", testimonialRoutes);
 app.use("/api/v1/whyUs", whyUsRoutes);
 app.use("/api/v1/slider", sliderRoutes);
 app.use("/api/v1/about", aboutRoutes);
+app.use("/api/v1/partner", partnerRoutes);
 
 app.use("/api/v1/uploads", uploadFileRoutes);
 
