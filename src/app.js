@@ -11,6 +11,8 @@ const countryRoutes = require("./app/modules/country/country.route");
 const universityRoutes = require("./app/modules/university/university.route");
 const testimonialRoutes = require("./app/modules/testimonial/testimonial.route");
 const whyUsRoutes = require("./app/modules/whyUs/whyUs.route");
+const sliderRoutes = require("./app/modules/slider/slider.route");
+const aboutRoutes = require("./app/modules/about/about.route");
 
 const uploadFileRoutes = require("./app/modules/uploadFile/uploadFile.route");
 
@@ -29,6 +31,8 @@ app.use("/api/v1/country", countryRoutes);
 app.use("/api/v1/university", universityRoutes);
 app.use("/api/v1/testimonial", testimonialRoutes);
 app.use("/api/v1/whyUs", whyUsRoutes);
+app.use("/api/v1/slider", sliderRoutes);
+app.use("/api/v1/about", aboutRoutes);
 
 app.use("/api/v1/uploads", uploadFileRoutes);
 
