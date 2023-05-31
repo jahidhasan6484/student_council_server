@@ -144,3 +144,10 @@ MultipleImageUpload(formData, setSelectedFiles);
 "description": "Example Description",
 "imageURL": "https://example.com/image.jpg"
 }
+
+### Partner:
+
+{
+"title": "Example Title",
+"imageURL": "https://example.com/image.jpg"
+}
