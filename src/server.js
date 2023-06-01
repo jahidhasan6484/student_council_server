@@ -6,7 +6,7 @@ const port = 5000;
 // Databse connection
 async function main() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/student_council');
+        await mongoose.connect('mongodb+srv://student_council:x6Rc652NL4cInzq4@cluster0.fcev8z1.mongodb.net/?retryWrites=true&w=majority');
         console.log("Database connection successful")
 
         app.listen(port, () => {
