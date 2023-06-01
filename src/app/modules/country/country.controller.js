@@ -1,31 +1,38 @@
 const Country = require("./country.model");
-const { insertCountryToDB, getCountryFromDB, getCountryByIDFromDB, updateCountryByIDToDB, deleteCountryByIDFromDB } = require("./country.service")
+const {
+    insertCountryToDB,
+    getCountryFromDB,
+    getCountryByIDFromDB,
+    updateCountryByIDToDB,
+    deleteCountryByIDFromDB,
+} = require("./country.service");
 
 const insertCountry = async (req, res) => {
     const data = req.body;
     try {
-        const exist = await Country.findOne({ countryName: data.countryName })
+        const exist = await Country.findOne({ countryName: data.countryName });
 
         if (exist) {
-            res.send({
+            return res.send({
                 status: "fail",
-                message: "Provided country already exist"
-            })
+                message: "Provide country alreay exist",
+            });
         }
 
-        const updatedData = await insertCountryToDB(data)
+        const updatedData = await insertCountryToDB(data);
 
         res.send({
             status: "success",
-            message: "Country added successfully",
-        })
+            message: "Counry added successfully",
+            data: updatedData,
+        });
     } catch {
         res.send({
             status: "fail",
             message: "Failed to add country",
-        })
+        });
     }
-}
+};
 
 const getCountry = async (req, res) => {
     try {
@@ -33,76 +40,74 @@ const getCountry = async (req, res) => {
 
         res.send({
             status: "success",
-            data: countries
-        })
+            data: countries,
+        });
     } catch {
         res.send({
             status: "fail",
-            message: "Failed to load countries"
-        })
+            message: "Failed to load countries",
+        });
     }
-}
+};
 
 const getCountryByID = async (req, res) => {
     const { id } = req.params;
     try {
-        const country = await getCountryByIDFromDB(id)
+        const country = await getCountryByIDFromDB(id);
 
         res.send({
             status: "success",
-            data: country
-        })
-
+            data: country,
+        });
     } catch {
         res.send({
             status: "fail",
-            message: "Failed to load country"
-        })
+            message: "Failed to load country",
+        });
     }
-}
+};
 
 const updateCountryByID = async (req, res) => {
     const { id } = req.params;
     const data = req.body;
     try {
-        const result = await updateCountryByIDToDB(id, data)
+        const result = await updateCountryByIDToDB(id, data);
 
         res.send({
             status: "success",
             message: "Country updated successfully",
-            data: result
-        })
-
+            data: result,
+        });
     } catch {
         res.send({
             status: "fail",
             message: "Failed to update country",
-        })
+        });
     }
-}
+};
 
 const deleteCountryByID = async (req, res) => {
     const { id } = req.params;
     try {
-        const remainingCountry = await deleteCountryByIDFromDB(id)
+        const remainingCountry = await deleteCountryByIDFromDB(id);
 
         res.send({
             status: "success",
             message: "Country deleted successfully",
-            data: remainingCountry
-        })
+            data: remainingCountry,
+        });
     } catch {
         res.send({
             status: "fail",
-            message: "Failed to delete country"
-        })
+            message: "Failed to delete country",
+        });
     }
-}
+};
 
 module.exports = {
     insertCountry,
     getCountry,
     getCountryByID,
     updateCountryByID,
-    deleteCountryByID
-}
+    deleteCountryByID,
+};

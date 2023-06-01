@@ -153,3 +153,40 @@ formData.append("images", event.target.files[i]);
 
 MultipleImageUpload(formData, setSelectedFiles);
 };
+
+### Why Us:
+
+{
+"title": "Example Titlsdssde Jahid hasan",
+"details": "Example Details jj"
+}
+
+### Slider:
+
+{
+"title": "Example Title",
+"subtitle": "Example Subtitle",
+"imageURL": "https://example.com/image.jpg"
+}
+
+### ABout:
+
+{
+"title": "Example Title 999",
+"description": "Example Description",
+"imageURL": "https://example.com/image.jpg"
+}
+
+### Partner:
+
+{
+"title": "Example Title",
+"imageURL": "https://example.com/image.jpg"
+}
+
+### Logo:
+
+{
+"headerLogoURL": "https://example.com/header-logo.png",
+"footerLogoURL": "https://example.com/footer-logo.png"
+}
