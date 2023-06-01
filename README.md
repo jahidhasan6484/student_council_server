@@ -151,3 +151,10 @@ MultipleImageUpload(formData, setSelectedFiles);
 "title": "Example Title",
 "imageURL": "https://example.com/image.jpg"
 }
+
+### Logo:
+
+{
+"headerLogoURL": "https://example.com/header-logo.png",
+"footerLogoURL": "https://example.com/footer-logo.png"
+}
