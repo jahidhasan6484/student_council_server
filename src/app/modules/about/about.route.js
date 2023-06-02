@@ -5,7 +5,7 @@ const {
   getAboutByID,
   updateAboutByID,
   deleteAboutByID,
-} = require("./about.controller");
+} = require('./about.controller');
 
 const router = express.Router();
 
