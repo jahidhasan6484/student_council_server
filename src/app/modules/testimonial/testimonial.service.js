@@ -2,6 +2,7 @@ const Testimonial = require("./testimonial.model");
 
 const insertTestimonialToDB = async (_data) => {
   await Testimonial.create(_data);
+  return await Testimonial.find({});
 };
 
 const getTestimonialsFromDB = async () => {
