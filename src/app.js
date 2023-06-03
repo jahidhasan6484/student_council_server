@@ -16,6 +16,7 @@ const aboutRoutes = require("./app/modules/about/about.route");
 const partnerRoutes = require("./app/modules/partner/partner.route");
 const logoRoutes = require("./app/modules/logo/logo.route");
 const privacyRoutes = require("./app/modules/privacy/privacy.route");
+const footerRoutes = require("./app/modules/footer/footer.route");
 
 const uploadFileRoutes = require("./app/modules/uploadFile/uploadFile.route");
 
@@ -39,6 +40,7 @@ app.use("/api/v1/about", aboutRoutes);
 app.use("/api/v1/partner", partnerRoutes);
 app.use("/api/v1/logo", logoRoutes);
 app.use("/api/v1/privacy", privacyRoutes);
+app.use("/api/v1/footer", footerRoutes);
 
 app.use("/api/v1/uploads", uploadFileRoutes);
 

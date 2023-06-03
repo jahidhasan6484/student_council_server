@@ -164,3 +164,18 @@ MultipleImageUpload(formData, setSelectedFiles);
 {
 "privacyPolicy": "Hey, this is privacy policy"
 }
+
+### Footer:
+
+{
+"aboutCompany": "Example Company",
+"address": "123 Example Street, City, Country",
+"phone": "123-456-7890",
+"email": "info@example.com",
+"facebookGroupURL": "https://www.facebook.com/groups/example",
+"facebookPageURL": "https://www.facebook.com/example",
+"twitterURL": "https://www.twitter.com/example",
+"instagramURL": "https://www.instagram.com/example",
+"youtubeURL": "https://www.youtube.com/example",
+"copyrightContent": "© 2023 Example Company"
+}
