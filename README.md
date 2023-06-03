@@ -190,3 +190,9 @@ MultipleImageUpload(formData, setSelectedFiles);
 "headerLogoURL": "https://example.com/header-logo.png",
 "footerLogoURL": "https://example.com/footer-logo.png"
 }
+
+### Privacy:
+
+{
+"privacyPolicy": "Hey, this is privacy policy"
+}
