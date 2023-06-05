@@ -211,3 +211,11 @@ MultipleImageUpload(formData, setSelectedFiles);
 "youtubeURL": "https://www.youtube.com/example",
 "copyrightContent": "© 2023 Example Company"
 }
+
+### Company Stats:
+
+{
+"studentsCount": 10,
+"partnerCount": 5,
+"councilorCount": 2
+}
