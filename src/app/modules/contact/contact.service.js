@@ -2,10 +2,25 @@ const Contacts = require("./contact.model");
 
 const insertContactRequestToDB = async (_data) => {
   await Contacts.create(_data);
+
+  return Contacts.find({}).exec();
 };
 
 const getContactRequestFromDB = async () => {
   return await Contacts.find({}).exec();
+};
+
+const getByIDFromDB = async (_id) => {
+  return await Contacts.findById(_id);
+};
+
+const updateContactByIDToDB = async (_id, _newData) => {
+  await Contacts.findByIdAndUpdate(_id, _newData, {
+    new: true,
+    runValidators: true,
+  });
+
+  return await Contacts.find({});
 };
 
 const getTodayContactRequestFromDB = async () => {
@@ -33,6 +48,8 @@ const getBySocialPlatformFromDB = async (_social) => {
 module.exports = {
   insertContactRequestToDB,
   getContactRequestFromDB,
+  getByIDFromDB,
+  updateContactByIDToDB,
   getTodayContactRequestFromDB,
   getByReferenceFromDB,
   getBySocialPlatformFromDB,

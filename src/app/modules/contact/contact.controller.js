@@ -1,20 +1,22 @@
 const {
   insertContactRequestToDB,
   getContactRequestFromDB,
+  getByIDFromDB,
   getTodayContactRequestFromDB,
   getByReferenceFromDB,
   getBySocialPlatformFromDB,
+  updateContactByIDToDB,
 } = require("./contact.service");
 
 const contactRequest = async (req, res) => {
   const data = req.body;
   try {
-    await insertContactRequestToDB(data);
+    const contact = await insertContactRequestToDB(data);
 
     res.send({
       status: "success",
       message: "A contact request has been sent",
-      data: data,
+      data: contact,
     });
   } catch {
     res.send({
@@ -36,6 +38,42 @@ const getContactRequest = async (req, res) => {
     res.send({
       status: "fail",
       message: "Failed to load contact request list",
+    });
+  }
+};
+
+const getContactByID = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const request = await getByIDFromDB(id);
+
+    res.send({
+      status: "success",
+      data: request,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to load contact request",
+    });
+  }
+};
+
+const updateContactByID = async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+  try {
+    const result = await updateContactByIDToDB(id, data);
+
+    res.send({
+      status: "success",
+      message: "Contact updated successfully",
+      data: result,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to update contact",
     });
   }
 };
@@ -93,6 +131,8 @@ const getBySocialPlatform = async (req, res) => {
 module.exports = {
   contactRequest,
   getContactRequest,
+  getContactByID,
+  updateContactByID,
   getTodayContactRequest,
   getByReference,
   getBySocialPlatform,
