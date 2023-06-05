@@ -6,6 +6,7 @@ const {
   getTodayContactRequest,
   getByReference,
   getBySocialPlatform,
+  updateContactByID,
 } = require("./contact.controller");
 
 const router = express.Router();
@@ -13,6 +14,7 @@ const router = express.Router();
 router.post("/", contactRequest);
 router.get("/", getContactRequest);
 router.get("/:id", getContactByID);
+router.patch("/:id", updateContactByID);
 router.get("/today", getTodayContactRequest);
 router.get("/reference/:ref", getByReference);
 router.get("/social/:social", getBySocialPlatform);
