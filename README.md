@@ -248,3 +248,25 @@ MultipleImageUpload(formData, setSelectedFiles);
 }
 ]
 }
+
+### Event Registration:
+
+{
+"title": "Sample Event Title",
+"location": "Sample Event Location",
+"details": "Sample Event Details",
+"dateAndTime": "2023-06-10 18:00",
+"imageURL": "https://example.com/event-image.jpg",
+"bannerImageURL": "https://example.com/event-banner.jpg"
+}
+
+### Event Assessment:
+
+{
+"title": "Sample Event Title",
+"location": "Sample Event Location",
+"details": "Sample Event Details",
+"dateAndTime": "2023-06-10 18:00",
+"imageURL": "https://example.com/event-image.jpg",
+"bannerImageURL": "https://example.com/event-banner.jpg"
+}
