@@ -50,7 +50,7 @@ const getStats = async (req, res) => {
   }
 };
 
-const updateStats = async (req, res) => {
+const updateStatsByID = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
   try {
@@ -71,5 +71,5 @@ const updateStats = async (req, res) => {
 module.exports = {
   insertStats,
   getStats,
-  updateStats,
+  updateStatsByID,
 };

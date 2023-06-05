@@ -219,3 +219,11 @@ MultipleImageUpload(formData, setSelectedFiles);
 "partnerCount": 5,
 "councilorCount": 2
 }
+
+### Video:
+
+{
+"title": "Sample Title",
+"youtubeURL": "https://www.youtube.com/watch?v=abcdefgh",
+"imageURL": "https://example.com/image.jpg"
+}
