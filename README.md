@@ -238,3 +238,14 @@ MultipleImageUpload(formData, setSelectedFiles);
 "imageURL": "https://example.com/event-image.jpg",
 "bannerImageURL": "https://example.com/event-banner.jpg"
 }
+
+### Event Seminar:
+
+{
+"title": "Sample Event Title",
+"location": "Sample Event Location",
+"details": "Sample Event Details",
+"dateAndTime": "2023-06-10 18:00",
+"imageURL": "https://example.com/event-image.jpg",
+"bannerImageURL": "https://example.com/event-banner.jpg"
+}

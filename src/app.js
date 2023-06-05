@@ -22,6 +22,7 @@ const videoRoutes = require("./app/modules/video/video.route");
 const expoRoutes = require("./app/modules/expo/expo.route");
 const registrationRoutes = require("./app/modules/registration/registration.route");
 const assessmentRoutes = require("./app/modules/assessment/assessment.route");
+const seminarRoutes = require("./app/modules/seminar/seminar.route");
 
 const uploadFileRoutes = require("./app/modules/uploadFile/uploadFile.route");
 
@@ -51,6 +52,7 @@ app.use("/api/v1/video", videoRoutes);
 app.use("/api/v1/event/expo", expoRoutes);
 app.use("/api/v1/event/registration", registrationRoutes);
 app.use("/api/v1/event/assessment", assessmentRoutes);
+app.use("/api/v1/event/seminar", seminarRoutes);
 
 app.use("/api/v1/uploads", uploadFileRoutes);
 
