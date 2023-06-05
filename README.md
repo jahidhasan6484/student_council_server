@@ -195,3 +195,24 @@ MultipleImageUpload(formData, setSelectedFiles);
 "youtubeURL": "https://www.youtube.com/watch?v=abcdefgh",
 "imageURL": "https://example.com/image.jpg"
 }
+
+### Expo:
+
+{
+"title": "Sample Event",
+"location": "Sample Location",
+"details": "Sample Event Details",
+"dateAndTime": "2023-06-10 18:00",
+"imageURL": "https://example.com/event-image.jpg",
+"bannerImageURL": "https://example.com/event-banner.jpg",
+"faq": [
+{
+"question": "Sample FAQ Question 1",
+"answer": "Sample FAQ Answer 1"
+},
+{
+"question": "Sample FAQ Question 2",
+"answer": "Sample FAQ Answer 2"
+}
+]
+}
