@@ -18,6 +18,7 @@ const logoRoutes = require("./app/modules/logo/logo.route");
 const privacyRoutes = require("./app/modules/privacy/privacy.route");
 const footerRoutes = require("./app/modules/footer/footer.route");
 const statsRoutes = require("./app/modules/stats/stats.route");
+const videoRoutes = require("./app/modules/video/video.route");
 
 const uploadFileRoutes = require("./app/modules/uploadFile/uploadFile.route");
 
@@ -43,6 +44,7 @@ app.use("/api/v1/logo", logoRoutes);
 app.use("/api/v1/privacy", privacyRoutes);
 app.use("/api/v1/footer", footerRoutes);
 app.use("/api/v1/stats", statsRoutes);
+app.use("/api/v1/video", videoRoutes);
 
 app.use("/api/v1/uploads", uploadFileRoutes);
 
