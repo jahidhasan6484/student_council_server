@@ -13,6 +13,7 @@ const insertWhyUs = async (req, res) => {
 
     res.send({
       status: "success",
+      message: "Why Us Feature added successfully",
       data: whyUs,
     });
   } catch {
@@ -64,6 +65,7 @@ const updateWhyUsByID = async (req, res) => {
 
     res.send({
       status: "success",
+      message: "Why Us Feature Updated successfully",
       data: whyUs,
     });
   } catch {
