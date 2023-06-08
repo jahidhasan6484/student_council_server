@@ -1,5 +1,5 @@
 const University = require("./university.model");
-const { getUniversitiesBycountryNameFromDB } = require("./university.service");
+const { getUniversitiesBycountryNameFromDB, getUniversityFromDB } = require("./university.service");
 
 const insertUniversity = async (req, res) => {
   const { countryName, universities } = req.body;
@@ -11,9 +11,11 @@ const insertUniversity = async (req, res) => {
       existingCountry.universities.push(...universities);
       await existingCountry.save();
 
+      const data = University.find({}).exec()
       return res.send({
         status: "success",
         message: "University added successfully",
+        data: data
       });
     } else {
       const universityData = { countryName, universities };
@@ -28,6 +30,22 @@ const insertUniversity = async (req, res) => {
     res.send({
       status: "fail",
       message: "Failed to add university",
+    });
+  }
+};
+
+const getUniversity = async (req, res) => {
+  try {
+    const universities = await getUniversityFromDB();
+
+    res.send({
+      status: "success",
+      data: universities,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to load contact request list",
     });
   }
 };
@@ -53,5 +71,6 @@ const getUniversitiesBycountryName = async (req, res) => {
 
 module.exports = {
   insertUniversity,
+  getUniversity,
   getUniversitiesBycountryName,
 };
