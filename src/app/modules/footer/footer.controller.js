@@ -9,6 +9,7 @@ const {
 
 const insertFooter = async (req, res) => {
   const data = req.body;
+
   try {
     let footer = await Footer.find({}).exec();
 
@@ -25,7 +26,7 @@ const insertFooter = async (req, res) => {
       status: "success",
       data: footer,
     });
-  } catch {
+  } catch (err) {
     res.send({
       status: "fail",
       message: "Failed to add footer",
