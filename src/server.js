@@ -8,7 +8,7 @@ const port = process.env.PORT || 8080;
 // Databse connection
 async function main() {
   try {
-    await mongoose.connect(process.env.DATABASE_URI);
+    await mongoose.connect(process.env.DATABASE_URI); // DATABSE_URI maybe change
     console.log("Database connection successful");
 
     app.listen(port, () => {
