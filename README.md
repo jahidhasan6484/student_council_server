@@ -3,13 +3,12 @@
 ### Sample User Data:
 
 {
-"fullName": "Rajib Khan",
-"email": "admin@studentcouncil.bd.edu",
+"fullName": "Jahid Hasan",
+"email": "jahidhasan@studentcouncil.bd.edu",
 "phoneNumber": "01718797522",
-"userName": "admin",
-"password": "Abc@123",
-"role": "admin",
-"status": "active"
+"role": "student",
+"status": "active",
+"registeredBy": "10062023104919"
 }
 
 ### Blog And News:

@@ -1,5 +1,10 @@
 const University = require("./university.model");
-const { getUniversitiesBycountryNameFromDB } = require("./university.service");
+const {
+  getUniversitiesBycountryNameFromDB,
+  getUniversityByIDFromDB,
+  deleteUniversityByIDFromDB,
+  updateUniversityByIDFromDB,
+} = require("./university.service");
 
 const insertUniversity = async (req, res) => {
   const { countryName, universities } = req.body;
@@ -51,7 +56,69 @@ const getUniversitiesBycountryName = async (req, res) => {
   }
 };
 
+const getUniversityByID = async (req, res) => {
+  const { countryID } = req.params;
+  const { universityID } = req.query;
+  try {
+    const university = await getUniversityByIDFromDB(countryID, universityID);
+    res.send({
+      status: "success",
+      data: university,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to get university data",
+    });
+  }
+};
+
+const updateUniversityByID = async (req, res) => {
+  const { countryID } = req.params;
+  const { universityID } = req.query;
+  const data = req.body;
+  try {
+    const university = await updateUniversityByIDFromDB(
+      countryID,
+      universityID,
+      data
+    );
+    res.send({
+      status: "success",
+      data: university,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to update university data",
+    });
+  }
+};
+
+const deleteUniversityByID = async (req, res) => {
+  const { countryID } = req.params;
+  const { universityID } = req.query;
+  try {
+    const university = await deleteUniversityByIDFromDB(
+      countryID,
+      universityID
+    );
+    res.send({
+      status: "success",
+      data: university,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to delete university data",
+    });
+  }
+};
+
 module.exports = {
   insertUniversity,
   getUniversitiesBycountryName,
+  getUniversityByID,
+  updateUniversityByID,
+  deleteUniversityByID,
 };

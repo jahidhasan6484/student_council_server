@@ -4,6 +4,10 @@ const registerUserToDB = async (data) => {
   await User.create(data);
 };
 
+const getUsersFromDB = async () => {
+  return await User.find({}).exec();
+};
+
 const getRegisteredByFromDB = async (_registeredBy) => {
   return await User.find({ registeredBy: _registeredBy }).exec();
 };
@@ -36,6 +40,7 @@ const generateAuthorityUserID = async (_fullName) => {
 module.exports = {
   registerUserToDB,
   getRegisteredByFromDB,
+  getUsersFromDB,
   generateUserID,
   generateAuthorityUserID,
 };

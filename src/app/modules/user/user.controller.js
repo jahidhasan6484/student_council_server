@@ -1,14 +1,23 @@
 var validator = require("validator");
 const bcrypt = require("bcrypt");
-const User = require("./user.model");
 const saltRounds = 10;
+const jwt = require("jsonwebtoken");
+
+const User = require("./user.model");
 
 const {
   generateUserID,
   registerUserToDB,
   generateAuthorityUserID,
   getRegisteredByFromDB,
+  getUsersFromDB,
 } = require("./user.service");
+
+const gererateJWT = (_userID) => {
+  const jwtKey = process.env.JWT_SECRET_KEY;
+
+  return jwt.sign({ _userID }, jwtKey);
+};
 
 const registerUser = async (req, res) => {
   const data = req.body;
@@ -45,21 +54,82 @@ const registerUser = async (req, res) => {
       userID = await generateAuthorityUserID(data?.fullName);
     }
     const password = await bcrypt.hash(userID, saltRounds);
+    const jwtToken = await gererateJWT(userID);
 
     await registerUserToDB({
       ...data,
       userID,
       password,
+      jwtToken,
     });
 
     res.send({
       status: "success",
       message: "User registerd successfully",
     });
-  } catch {
+  } catch (err) {
+    console.log(err);
     res.send({
       status: "fail",
       message: "Failed to register an user",
+    });
+  }
+};
+
+const loginUser = async (req, res) => {
+  const { email, userID, password } = req.body;
+  try {
+    const user = await User.findOne({
+      $or: [{ userID: userID }, { email: email }],
+    });
+
+    if (!user) {
+      return res.send({
+        status: "fail",
+        message: "Email or userID did not exist",
+      });
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user?.password);
+
+    if (!isPasswordMatch) {
+      return res.send({
+        status: "fail",
+        message: "Incorrect password",
+      });
+    }
+
+    res.send({
+      status: "success",
+      data: {
+        fullName: user?.fullName,
+        email: user?.email,
+        role: user?.role,
+        phoneNumber: user?.phoneNumber,
+        imageURL: user?.imageURL,
+        jwtToken: user?.jwtToken,
+      },
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Invalid information",
+    });
+  }
+};
+
+const getUsers = async (req, res) => {
+  try {
+    const users = await getUsersFromDB();
+
+    res.send({
+      status: "success",
+      data: users,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to get user list",
     });
   }
 };
@@ -82,5 +152,7 @@ const getRegisteredBy = async (req, res) => {
 
 module.exports = {
   registerUser,
+  getUsers,
+  loginUser,
   getRegisteredBy,
 };
