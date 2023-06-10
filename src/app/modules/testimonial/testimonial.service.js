@@ -9,6 +9,19 @@ const getTestimonialsFromDB = async () => {
   return await Testimonial.find({}).exec();
 };
 
+const getTestimonialsByIDFromDB = async (_id) => {
+  return await Testimonial.findById(_id);
+};
+
+const updatePostToDB = async (_id, _newData) => {
+  await Testimonial.findByIdAndUpdate(_id, _newData, {
+    new: true,
+    runValidators: true,
+  });
+
+  return await Testimonial.find({});
+};
+
 const approveTestimonialByIDToDB = async (_id) => {
   await Testimonial.updateOne({ _id: _id }, { isApprove: true });
 
@@ -26,4 +39,6 @@ module.exports = {
   getTestimonialsFromDB,
   approveTestimonialByIDToDB,
   deleteTestimonialByIDFromDB,
+  getTestimonialsByIDFromDB,
+  updatePostToDB,
 };
