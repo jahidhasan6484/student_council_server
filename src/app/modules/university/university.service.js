@@ -1,6 +1,10 @@
 const University = require("./university.model");
 // const ObjectId = require('mongodb').ObjectId;
 
+const getUniversityFromDB = async () => {
+  return await University.find({}).exec();
+};
+
 const getUniversitiesBycountryNameFromDB = async (_countryName) => {
   return await University.findOne({ countryName: _countryName });
 };

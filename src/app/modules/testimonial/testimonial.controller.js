@@ -8,11 +8,11 @@ const {
 const insertTestimonial = async (req, res) => {
   const data = req.body;
   try {
-    await insertTestimonialToDB(data);
-
+    const result = await insertTestimonialToDB(data);
     res.send({
       status: "success",
       message: "Testimonial added successfully",
+      data: result,
     });
   } catch {
     res.send({

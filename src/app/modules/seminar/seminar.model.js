@@ -10,10 +10,6 @@ const seminarSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    details: {
-      type: String,
-      required: true,
-    },
     dateAndTime: {
       type: String,
       required: true,
@@ -26,6 +22,18 @@ const seminarSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    faq: [
+      {
+        question: {
+          type: String,
+          require: true,
+        },
+        answer: {
+          type: String,
+          require: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
