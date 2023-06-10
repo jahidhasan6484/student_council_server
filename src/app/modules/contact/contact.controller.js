@@ -11,12 +11,11 @@ const {
 const contactRequest = async (req, res) => {
   const data = req.body;
   try {
-    const contact = await insertContactRequestToDB(data);
+    await insertContactRequestToDB(data);
 
     res.send({
       status: "success",
       message: "A contact request has been sent",
-      data: contact,
     });
   } catch {
     res.send({

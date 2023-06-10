@@ -2,8 +2,6 @@ const Contacts = require("./contact.model");
 
 const insertContactRequestToDB = async (_data) => {
   await Contacts.create(_data);
-
-  return Contacts.find({}).exec();
 };
 
 const getContactRequestFromDB = async () => {
