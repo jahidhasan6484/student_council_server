@@ -13,7 +13,7 @@ const {
   getUsersFromDB,
 } = require("./user.service");
 
-const gererateJWT = (_userID) => {
+const generateJWT = (_userID) => {
   const jwtKey = process.env.JWT_SECRET_KEY;
 
   return jwt.sign({ _userID }, jwtKey);
@@ -21,7 +21,6 @@ const gererateJWT = (_userID) => {
 
 const registerUser = async (req, res) => {
   const data = req.body;
-
   try {
     if (!validator.isEmail(data?.email)) {
       return res.send({
@@ -54,7 +53,7 @@ const registerUser = async (req, res) => {
       userID = await generateAuthorityUserID(data?.fullName);
     }
     const password = await bcrypt.hash(userID, saltRounds);
-    const jwtToken = await gererateJWT(userID);
+    const jwtToken = await generateJWT(userID);
 
     await registerUserToDB({
       ...data,
@@ -63,9 +62,13 @@ const registerUser = async (req, res) => {
       jwtToken,
     });
 
+
+    const result = await getUsersFromDB()
+
     res.send({
       status: "success",
-      message: "User registerd successfully",
+      message: "User registered successfully",
+      data: result
     });
   } catch (err) {
     console.log(err);
