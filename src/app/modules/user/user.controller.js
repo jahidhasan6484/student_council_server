@@ -80,7 +80,7 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { email, userID, password } = req.body;
+  const { email, userID, password } = req.query;
   try {
     const user = await User.findOne({
       $or: [{ userID: userID }, { email: email }],
