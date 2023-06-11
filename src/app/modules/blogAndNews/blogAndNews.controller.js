@@ -1,3 +1,4 @@
+const BlogAndNews = require("./blogAndNews.model");
 const {
   createPostToDB,
   getBlogAndNewsByTypeFromDB,
@@ -12,10 +13,11 @@ const createPost = async (req, res) => {
 
   try {
     await createPostToDB(data);
-
+    const result = await getBlogAndNewsFromDB();
     res.send({
       status: "success",
       message: "Blog and News posted successfully",
+      data: result
     });
   } catch {
     res.send({
