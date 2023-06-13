@@ -7,6 +7,9 @@ const registerUserToDB = async (data) => {
 const getUsersFromDB = async () => {
   return await User.find({ isActive: true }).exec();
 };
+const getUserByIdFromDB = async (email) => {
+  return await User.findOne({ email: email });
+};
 
 const getUsersByRoleFromDB = async (_role) => {
   return await User.find(
@@ -53,6 +56,7 @@ module.exports = {
   registerUserToDB,
   getRegisteredByFromDB,
   getUsersFromDB,
+  getUserByIdFromDB,
   getUsersByRoleFromDB,
   generateUserID,
   generateAuthorityUserID,

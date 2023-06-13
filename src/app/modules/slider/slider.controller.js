@@ -10,7 +10,6 @@ const insertSlider = async (req, res) => {
   const data = req.body;
   try {
     const slider = await insertSliderToDB(data);
-
     res.send({
       status: "success",
       data: slider,
