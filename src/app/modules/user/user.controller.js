@@ -11,6 +11,7 @@ const {
   generateAuthorityUserID,
   getRegisteredByFromDB,
   getUsersFromDB,
+  getUsersByRoleFromDB,
 } = require("./user.service");
 
 const generateJWT = (_userID) => {
@@ -42,7 +43,10 @@ const registerUser = async (req, res) => {
     if (data?.role === "student") {
       userID = await generateUserID();
     } else {
-      const existOnSameName = await User.findOne({ fullName: data?.fullName });
+      const existOnSameName = await User.findOne({
+        fullName: data?.fullName,
+        role: { $ne: "student" },
+      });
 
       if (existOnSameName) {
         return res.send({
@@ -80,16 +84,17 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { email, userID, password } = req.query;
+  const { identifier, password } = req.body;
+  console.log(identifier, password);
   try {
     const user = await User.findOne({
-      $or: [{ userID: userID }, { email: email }],
+      $or: [{ userID: identifier }, { email: identifier }],
     });
 
     if (!user) {
       return res.send({
         status: "fail",
-        message: "Email or userID did not exist",
+        message: `${identifier} did not exist`,
       });
     }
 
@@ -137,6 +142,22 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getUsersByRole = async (req, res) => {
+  const { role } = req.params;
+  try {
+    const users = await getUsersByRoleFromDB(role);
+    res.send({
+      status: "success",
+      data: users,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to get users by role",
+    });
+  }
+};
+
 const getRegisteredBy = async (req, res) => {
   const { registeredBy } = req.params;
   try {
@@ -157,5 +178,6 @@ module.exports = {
   registerUser,
   getUsers,
   loginUser,
+  getUsersByRole,
   getRegisteredBy,
 };

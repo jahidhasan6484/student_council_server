@@ -5,11 +5,21 @@ const registerUserToDB = async (data) => {
 };
 
 const getUsersFromDB = async () => {
-  return await User.find({}).exec();
+  return await User.find({ isActive: true }).exec();
+};
+
+const getUsersByRoleFromDB = async (_role) => {
+  return await User.find(
+    { role: _role, isActive: true },
+    { fullName: 1, userID: 1, email: 1, role: 1, isActive: 1 }
+  ).exec();
 };
 
 const getRegisteredByFromDB = async (_registeredBy) => {
-  return await User.find({ registeredBy: _registeredBy }).exec();
+  return await User.find({
+    registeredBy: _registeredBy,
+    isActive: true,
+  }).exec();
 };
 
 const generateUserID = async () => {
@@ -33,7 +43,9 @@ const generateAuthorityUserID = async (_fullName) => {
 
   const cleanedName = _fullName.replace(/[^a-zA-Z0-9]/g, "");
 
-  const userId = `${cleanedName.toLowerCase()}${day}${month}${year}`;
+  const userId = `${cleanedName
+    .slice(0, 5)
+    .toLowerCase()}${day}${month}${year}`;
   return userId;
 };
 
@@ -41,6 +53,7 @@ module.exports = {
   registerUserToDB,
   getRegisteredByFromDB,
   getUsersFromDB,
+  getUsersByRoleFromDB,
   generateUserID,
   generateAuthorityUserID,
 };

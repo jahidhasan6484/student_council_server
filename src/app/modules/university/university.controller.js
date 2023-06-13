@@ -16,7 +16,7 @@ const insertUniversity = async (req, res) => {
       existingCountry.universities.push(...universities);
       await existingCountry.save();
 
-      const data = University.find({}).exec();
+      const data = University.findOne({ countryName });
       return res.send({
         status: "success",
         message: "University added successfully",
@@ -26,9 +26,11 @@ const insertUniversity = async (req, res) => {
       const universityData = { countryName, universities };
       await University.create(universityData);
 
+      const data = University.findOne({ countryName });
       return res.send({
         status: "success",
         message: "University added successfully",
+        data: data,
       });
     }
   } catch (error) {

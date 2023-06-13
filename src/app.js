@@ -23,6 +23,9 @@ const expoRoutes = require("./app/modules/expo/expo.route");
 const registrationRoutes = require("./app/modules/registration/registration.route");
 const assessmentRoutes = require("./app/modules/assessment/assessment.route");
 const seminarRoutes = require("./app/modules/seminar/seminar.route");
+const chatRoutes = require("./app/modules/chat/chat.route");
+const messageRoutes = require("./app/modules/message/message.route");
+const visitingStudentRoutes = require("./app/modules/VisitingStudent/VisitingStudent.route");
 
 const uploadFileRoutes = require("./app/modules/uploadFile/uploadFile.route");
 
@@ -53,6 +56,9 @@ app.use("/api/v1/event/expo", expoRoutes);
 app.use("/api/v1/event/registration", registrationRoutes);
 app.use("/api/v1/event/assessment", assessmentRoutes);
 app.use("/api/v1/event/seminar", seminarRoutes);
+app.use("/api/v1/chat", chatRoutes);
+app.use("/api/v1/message", messageRoutes);
+app.use("/api/v1/visitingStudent", visitingStudentRoutes);
 
 app.use("/api/v1/uploads", uploadFileRoutes);
 
