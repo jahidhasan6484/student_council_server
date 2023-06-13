@@ -12,6 +12,7 @@ const {
   getRegisteredByFromDB,
   getUsersFromDB,
   getUsersByRoleFromDB,
+  getUserByIdFromDB,
 } = require("./user.service");
 
 const generateJWT = (_userID) => {
@@ -141,6 +142,22 @@ const getUsers = async (req, res) => {
     });
   }
 };
+const getUserById = async (req, res) => {
+  const { email } = req.params;
+  try {
+    const user = await getUserByIdFromDB(email);
+
+    res.send({
+      status: "success",
+      data: user,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to get user list",
+    });
+  }
+};
 
 const getUsersByRole = async (req, res) => {
   const { role } = req.params;
@@ -177,6 +194,7 @@ const getRegisteredBy = async (req, res) => {
 module.exports = {
   registerUser,
   getUsers,
+  getUserById,
   loginUser,
   getUsersByRole,
   getRegisteredBy,
