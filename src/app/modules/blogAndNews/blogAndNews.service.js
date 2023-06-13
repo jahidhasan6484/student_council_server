@@ -2,6 +2,8 @@ const BlogAndNews = require("./blogAndNews.model");
 
 const createPostToDB = async (_data) => {
   await BlogAndNews.create(_data);
+
+  return await BlogAndNews.find({ type: _data?.type }).exec({});
 };
 
 const getBlogAndNewsFromDB = async () => {
