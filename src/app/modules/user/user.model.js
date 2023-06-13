@@ -27,13 +27,12 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    status: {
-      type: String,
-      require: true,
+    isActive: {
+      type: Boolean,
+      default: true,
     },
     registeredBy: {
       type: String,
-      require: true,
     },
     jwtToken: {
       type: String,
