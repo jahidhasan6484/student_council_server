@@ -16,7 +16,7 @@
 {
 "title": "Sample Title",
 "description": "Sample Description",
-"type": "Sample Type",
+"type": "blog",
 "date": "2023-05-24",
 "month": "May",
 "year": "2023",
@@ -283,4 +283,76 @@ Added By :
 {
 "senderID": "jahid12062023",
 "reciverID": "13062023102728"
+}
+
+### Visiting Student:
+
+{
+"fullName": "John Doe",
+"age": "25",
+"gender": "Male",
+"countryOfBirth": "United States",
+"location": "New York",
+"nationality": "American",
+"permanentAddress": [
+{
+"country": "United States",
+"city": "New York",
+"zipCode": "10001",
+"streetAddress": "123 Main St"
+}
+],
+"mailingAddress": [
+{
+"country": "United States",
+"city": "New York",
+"zipCode": "10001",
+"streetAddress": "456 Elm St"
+}
+],
+"phone": "1234567890",
+"whatsApp": "1234567890",
+"email": "john.doe@example.com",
+"hearAboutUs": "Website",
+"referredPerson": "Jane Smith",
+"havePassport": "Yes",
+"isPassportValid": "Yes",
+"visaDeniedCountry": [],
+"traveledCountry": [],
+"guardianDetails": [
+{
+"fullName": "Jane Doe",
+"relationship": "Mother",
+"phone": "9876543210",
+"whatsApp": "9876543210",
+"email": "jane.doe@example.com"
+}
+],
+"qualification": [
+"Bachelor's Degree",
+"Master's Degree"
+],
+"additionalDegrees": "PhD",
+"jobExperience": [
+{
+"institute": "ABC Company",
+"position": "Software Engineer",
+"dateOfJoining": "2018-01-01",
+"country": "United States",
+"city": "New York"
+}
+],
+"additionalComments": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+"englishProficiency": [
+{
+"proficiency": "Advanced",
+"whereCompleted": "Language School",
+"whichInstitution": "XYZ Institute",
+"score": "90",
+"year": "2022",
+"scheduled": "Yes",
+"country": "United States",
+"comments": "Some comments here"
+}
+]
 }

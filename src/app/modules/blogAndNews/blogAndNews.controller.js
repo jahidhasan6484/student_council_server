@@ -11,11 +11,12 @@ const createPost = async (req, res) => {
   const data = req.body;
 
   try {
-    await createPostToDB(data);
+    const latest = await createPostToDB(data);
 
     res.send({
       status: "success",
       message: "Blog and News posted successfully",
+      data: latest,
     });
   } catch {
     res.send({
