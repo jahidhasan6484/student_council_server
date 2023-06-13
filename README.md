@@ -277,3 +277,10 @@ MultipleImageUpload(formData, setSelectedFiles);
 
 Student Data : ======>
 Added By :
+
+### Chat access:
+
+{
+"senderID": "jahid12062023",
+"reciverID": "13062023102728"
+}
