@@ -80,7 +80,7 @@ const updatePost = async (req, res) => {
   const data = req.body;
   try {
     const result = await updatePostToDB(id, data);
-    const post = await BlogAndNews.findOne({ _id: id })
+    const post = await BlogAndNews.findOne({ _id: id });
     const filterData = await getBlogAndNewsByTypeFromDB(post.type);
     res.send({
       status: "success",
@@ -98,9 +98,9 @@ const updatePost = async (req, res) => {
 const deletePost = async (req, res) => {
   const { id } = req.params;
   try {
-    const data = await getBlogAndNewsByIdFromDB(id)
+    const data = await getBlogAndNewsByIdFromDB(id);
     const remainingPost = await deletePostByIdFromDB(id);
-    const finalData = await getBlogAndNewsByTypeFromDB(data.type)
+    const finalData = await getBlogAndNewsByTypeFromDB(data.type);
     res.send({
       status: "success",
       message: "Post deleted successfully",

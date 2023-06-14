@@ -15,7 +15,7 @@ router.post("/", contactRequest);
 router.get("/", getContactRequest);
 router.get("/:id", getContactByID);
 router.patch("/:id", updateContactByID);
-router.get("/today", getTodayContactRequest);
+router.get("/day/today", getTodayContactRequest);
 router.get("/reference/:ref", getByReference);
 router.get("/social/:social", getBySocialPlatform);
 

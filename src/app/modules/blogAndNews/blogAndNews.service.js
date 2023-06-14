@@ -19,7 +19,6 @@ const getBlogAndNewsByTypeFromDB = async (_type) => {
 };
 
 const updatePostToDB = async (_id, _newData) => {
-
   await BlogAndNews.findByIdAndUpdate(_id, _newData, {
     new: true,
     runValidators: true,

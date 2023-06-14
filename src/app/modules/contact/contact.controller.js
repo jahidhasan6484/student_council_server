@@ -80,7 +80,6 @@ const updateContactByID = async (req, res) => {
 const getTodayContactRequest = async (req, res) => {
   try {
     const todayRequest = await getTodayContactRequestFromDB();
-
     res.send({
       status: "success",
       data: todayRequest,
