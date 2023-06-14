@@ -13,6 +13,8 @@ const {
   getUsersFromDB,
   getUsersByRoleFromDB,
   getUserByIdFromDB,
+  getProfileInfoByIdentifierFromDB,
+  updateProfileInfoByIdentifierFromDB,
 } = require("./user.service");
 
 const generateJWT = (_userID) => {
@@ -67,13 +69,12 @@ const registerUser = async (req, res) => {
       jwtToken,
     });
 
-
-    const result = await getUsersFromDB()
+    const result = await getUsersFromDB();
 
     res.send({
       status: "success",
       message: "User registered successfully",
-      data: result
+      data: result,
     });
   } catch (err) {
     console.log(err);
@@ -141,6 +142,7 @@ const getUsers = async (req, res) => {
     });
   }
 };
+
 const getUserById = async (req, res) => {
   const { email } = req.params;
   try {
@@ -190,6 +192,39 @@ const getRegisteredBy = async (req, res) => {
   }
 };
 
+const getProfileInfoByIdentifier = async (req, res) => {
+  const { identifier } = req.params;
+  try {
+    const user = await getProfileInfoByIdentifierFromDB(identifier);
+    res.send({
+      status: "success",
+      data: user,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to get profile information",
+    });
+  }
+};
+
+const updateProfileInfoByIdentifier = async (req, res) => {
+  const { identifier } = req.params;
+  const data = req.body;
+  try {
+    const user = await updateProfileInfoByIdentifierFromDB(identifier, data);
+    res.send({
+      status: "success",
+      data: user,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to update profile information",
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   getUsers,
@@ -197,4 +232,6 @@ module.exports = {
   loginUser,
   getUsersByRole,
   getRegisteredBy,
+  getProfileInfoByIdentifier,
+  updateProfileInfoByIdentifier,
 };

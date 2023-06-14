@@ -25,6 +25,7 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
+      enum: ["admin", "student", "sub-admin"],
       require: true,
     },
     isActive: {
@@ -35,6 +36,31 @@ const userSchema = mongoose.Schema(
       type: String,
     },
     jwtToken: {
+      type: String,
+      require: true,
+    },
+    gender: {
+      type: String,
+      enum: ["male", "female"],
+      require: true,
+    },
+    address: {
+      type: String,
+      require: true,
+    },
+    city: {
+      type: String,
+      require: true,
+    },
+    zipCode: {
+      type: String,
+      require: true,
+    },
+    country: {
+      type: String,
+      require: true,
+    },
+    imageURL: {
       type: String,
       require: true,
     },
