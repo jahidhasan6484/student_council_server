@@ -77,8 +77,7 @@ const getUniversitiesBycountryName = async (req, res) => {
 };
 
 const getUniversityByID = async (req, res) => {
-  const { countryID } = req.params;
-  const { universityID } = req.query;
+  const { countryID, universityID } = req.params;
   try {
     const university = await getUniversityByIDFromDB(countryID, universityID);
     res.send({
@@ -94,8 +93,7 @@ const getUniversityByID = async (req, res) => {
 };
 
 const updateUniversityByID = async (req, res) => {
-  const { countryID } = req.params;
-  const { universityID } = req.query;
+  const { countryID, universityID } = req.params;
   const data = req.body;
   try {
     const university = await updateUniversityByIDFromDB(
@@ -116,8 +114,7 @@ const updateUniversityByID = async (req, res) => {
 };
 
 const deleteUniversityByID = async (req, res) => {
-  const { countryID } = req.params;
-  const { universityID } = req.query;
+  const { countryID, universityID } = req.params;
   try {
     const university = await deleteUniversityByIDFromDB(
       countryID,
