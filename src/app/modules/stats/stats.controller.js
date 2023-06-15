@@ -58,6 +58,7 @@ const updateStatsByID = async (req, res) => {
 
     res.send({
       status: "success",
+      message: "Stats updated successfully",
       data: stats,
     });
   } catch {

@@ -38,11 +38,12 @@ const deleteUniversityByIDFromDB = async (_countryID, _universityID) => {
     { $pull: { universities: { _id: _universityID } } }
   );
 
-  return await University.findById(_countryID).exec();
+  return await University.find({}).exec();
 };
 
 module.exports = {
   getUniversitiesBycountryNameFromDB,
+  getUniversityFromDB,
   getUniversityByIDFromDB,
   updateUniversityByIDFromDB,
   deleteUniversityByIDFromDB,

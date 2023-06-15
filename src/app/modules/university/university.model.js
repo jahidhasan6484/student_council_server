@@ -28,20 +28,21 @@ const universitySchema = mongoose.Schema(
           type: String,
           required: true,
         },
+        documents: [
+          {
+            question: {
+              type: String,
+              require: true,
+            },
+            answer: {
+              type: String,
+              require: true,
+            },
+          },
+        ],
       },
     ],
-    documents: [
-      {
-        question: {
-          type: String,
-          require: true,
-        },
-        answer: {
-          type: String,
-          require: true,
-        },
-      },
-    ],
+
   },
   {
     timestamps: true,
