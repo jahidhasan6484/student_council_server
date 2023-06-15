@@ -15,7 +15,18 @@ const getUserByIdFromDB = async (email) => {
 const getUsersByRoleFromDB = async (_role) => {
   return await User.find(
     { role: _role, isActive: true },
-    { fullName: 1, userID: 1, email: 1, role: 1, isActive: 1 }
+    {
+      fullName: 1,
+      userID: 1,
+      email: 1,
+      phoneNumber: 1,
+      gender: 1,
+      address: 1,
+      city: 1,
+      zipCode: 1,
+      country: 1,
+      imageURL: 1,
+    }
   ).exec();
 };
 
