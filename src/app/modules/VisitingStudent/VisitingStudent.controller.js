@@ -13,9 +13,11 @@ const insertVisitingStudentInfo = async (req, res) => {
 
     res.send({
       status: "success",
+      message: "Form Submitted Successfully",
       data: formInfo,
     });
   } catch (error) {
+    console.log(error);
     res.send({
       status: "fail",
       message: "Failed to insert visiting student information",

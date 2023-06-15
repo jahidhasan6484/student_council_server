@@ -84,7 +84,7 @@ const contactsSchema = mongoose.Schema(
     },
     assignedTo: {
       type: String,
-      required: true
+      required: false
     }
   },
   {
