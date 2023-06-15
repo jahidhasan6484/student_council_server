@@ -17,7 +17,7 @@ const contactRequest = async (req, res) => {
       status: "success",
       message: "A contact request has been sent",
     });
-  } catch {
+  } catch (error) {
     res.send({
       status: "fail",
       message: "Failed to send contact request",
