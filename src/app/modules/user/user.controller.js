@@ -15,6 +15,7 @@ const {
   getUserByIdFromDB,
   getProfileInfoByIdentifierFromDB,
   updateProfileInfoByIdentifierFromDB,
+  getUserByIdentifierFromDB,
 } = require("./user.service");
 
 const generateJWT = (_userID) => {
@@ -77,7 +78,6 @@ const registerUser = async (req, res) => {
       data: result,
     });
   } catch (err) {
-    console.log(err);
     res.send({
       status: "fail",
       message: "Failed to register an user",
@@ -111,6 +111,7 @@ const loginUser = async (req, res) => {
     res.send({
       status: "success",
       data: {
+        userID: user?.userID,
         fullName: user?.fullName,
         email: user?.email,
         role: user?.role,
@@ -143,10 +144,10 @@ const getUsers = async (req, res) => {
   }
 };
 
-const getUserById = async (req, res) => {
-  const { email } = req.params;
+const getUserByIdentifier = async (req, res) => {
+  const { identifier } = req.params;
   try {
-    const user = await getUserByIdFromDB(email);
+    const user = await getUserByIdentifierFromDB(identifier);
 
     res.send({
       status: "success",
@@ -225,13 +226,30 @@ const updateProfileInfoByIdentifier = async (req, res) => {
   }
 };
 
+const getUserFullNameByUserID = async (req, res) => {
+  const { userID } = req.params;
+  try {
+    const fullName = await User.findOne({ userID: userID }, { fullName: 1 });
+
+    res.send({
+      status: "success",
+      data: fullName,
+    });
+  } catch (error) {
+    res.send({
+      status: "fail",
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   getUsers,
-  getUserById,
+  getUserByIdentifier,
   loginUser,
   getUsersByRole,
   getRegisteredBy,
   getProfileInfoByIdentifier,
   updateProfileInfoByIdentifier,
+  getUserFullNameByUserID,
 };
