@@ -26,7 +26,6 @@ const insertVisitingStudentInfo = async (req, res) => {
 };
 
 const getVisitedStudents = async (req, res) => {
-  console.log("sss");
   try {
     const allStudents = await getVisitedStudentsFromDB();
     res.send({

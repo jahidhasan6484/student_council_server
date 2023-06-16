@@ -8,8 +8,24 @@ const getUsersFromDB = async () => {
   return await User.find({ isActive: true }).exec();
 };
 
-const getUserByIdFromDB = async (email) => {
-  return await User.findOne({ email: email });
+const getUserByIdentifierFromDB = async (_identifier) => {
+  return await User.findOne(
+    {
+      $or: [{ userID: _identifier }, { email: _identifier }],
+    },
+    {
+      fullName: 1,
+      userID: 1,
+      email: 1,
+      phoneNumber: 1,
+      gender: 1,
+      address: 1,
+      city: 1,
+      zipCode: 1,
+      country: 1,
+      imageURL: 1,
+    }
+  );
 };
 
 const getUsersByRoleFromDB = async (_role) => {
@@ -104,7 +120,7 @@ module.exports = {
   registerUserToDB,
   getRegisteredByFromDB,
   getUsersFromDB,
-  getUserByIdFromDB,
+  getUserByIdentifierFromDB,
   getUsersByRoleFromDB,
   generateUserID,
   generateAuthorityUserID,

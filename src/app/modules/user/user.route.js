@@ -5,21 +5,24 @@ const {
   loginUser,
   getUsers,
   getUsersByRole,
-  getUserById,
+  getUserByIdentifier,
   getProfileInfoByIdentifier,
   updateProfileInfoByIdentifier,
+  getUserFullNameByUserID,
 } = require("./user.controller");
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.get("/", getUsers);
-router.get("/:email", getUserById);
+router.get("/:identifier", getUserByIdentifier);
 router.post("/login", loginUser);
 router.get("/role/:role", getUsersByRole);
 router.get("/register/:registeredBy", getRegisteredBy);
 
 router.get("/profile/:identifier", getProfileInfoByIdentifier);
 router.patch("/profile/:identifier", updateProfileInfoByIdentifier);
+
+router.get("/fullName/:userID", getUserFullNameByUserID);
 
 module.exports = router;
