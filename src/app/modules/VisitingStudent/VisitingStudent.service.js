@@ -14,6 +14,20 @@ const getVisitingStudentByIDFromDB = async (_id) => {
   return await VisitingStudent.findById(_id);
 };
 
+const getTodayVisitingStudentFromDB = async () => {
+  const today = new Date();
+
+  const todayQuery = {
+    $and: [
+      { date: today.getDate() },
+      { month: today.getMonth() + 1 },
+      { year: today.getFullYear() },
+    ],
+  };
+
+  return await VisitingStudent.find(todayQuery).exec();
+};
+
 const updateVisitingStudentByIDToDB = async (_id, _newData) => {
   await VisitingStudent.findByIdAndUpdate(_id, _newData, {
     new: true,
@@ -32,6 +46,7 @@ module.exports = {
   insertVisitingStudentInfoToDB,
   getVisitedStudentsFromDB,
   getVisitingStudentByIDFromDB,
+  getTodayVisitingStudentFromDB,
   updateVisitingStudentByIDToDB,
   deleteVisitingStudentByIDToDB,
 };

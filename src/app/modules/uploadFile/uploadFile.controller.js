@@ -5,12 +5,12 @@ const insertSingleImage = async (req, res) => {
   try {
     upload.single("image")(req, res, (err) => {
       const file = req.file;
-      const { path } = file;
-
+      const { path, originalname } = file;
       res.send({
         status: "success",
         message: "Image uploaded successfully",
         data: path,
+        backgroundURL: originalname
       });
     });
   } catch {
