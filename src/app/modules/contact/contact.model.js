@@ -85,7 +85,24 @@ const contactsSchema = mongoose.Schema(
     assignedTo: {
       type: String,
       required: false
-    }
+    },
+    comment: [
+      {
+        fullName: {
+          type: String,
+        },
+        imageURL: {
+          type: String,
+        },
+        comment: {
+          type: String,
+        },
+        date: {
+          type: String,
+        },
+
+      }
+    ]
   },
   {
     timestamps: true,

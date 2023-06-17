@@ -7,6 +7,9 @@ const {
   getBySocialPlatformFromDB,
   updateContactByIDToDB,
   getByStatusFromDB,
+  getAssignedToByNameFromDB,
+  getCommentFromDB,
+  updateCommentByID,
 } = require("./contact.service");
 
 const contactRequest = async (req, res) => {
@@ -60,6 +63,7 @@ const getContactByID = async (req, res) => {
 
 const updateContactByID = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   const data = req.body;
   try {
     const result = await updateContactByIDToDB(id, data);
@@ -69,7 +73,8 @@ const updateContactByID = async (req, res) => {
       message: "Contact updated successfully",
       data: result,
     });
-  } catch {
+  } catch (error) {
+    console.log(error);
     res.send({
       status: "fail",
       message: "Failed to update contact",
@@ -141,6 +146,57 @@ const getByStatus = async (req, res) => {
     });
   }
 };
+const getAssignedToByName = async (req, res) => {
+  const { name } = req.params;
+  try {
+    const assignedData = await getAssignedToByNameFromDB(name);
+
+    res.send({
+      status: "success",
+      data: assignedData,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to load Assigned data",
+    });
+  }
+};
+const updateCommentById = async (req, res) => {
+  const { id } = req.params;
+  const newData = req.body
+
+  try {
+    const assignedData = await updateCommentByID(id, newData);
+
+    res.send({
+      status: "success",
+      data: assignedData,
+    });
+  } catch (error) {
+
+    res.send({
+      status: "fail",
+      message: "Failed to load Assigned data",
+    });
+  }
+};
+const getCommentById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const assignedData = await getCommentFromDB(id);
+
+    res.send({
+      status: "success",
+      data: assignedData,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to load Assigned data",
+    });
+  }
+};
 
 module.exports = {
   contactRequest,
@@ -150,5 +206,8 @@ module.exports = {
   getTodayContactRequest,
   getByReference,
   getBySocialPlatform,
-  getByStatus
+  getByStatus,
+  getAssignedToByName,
+  getCommentById,
+  updateCommentById
 };

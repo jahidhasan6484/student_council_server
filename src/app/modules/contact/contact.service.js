@@ -45,6 +45,21 @@ const getBySocialPlatformFromDB = async (_social) => {
 const getByStatusFromDB = async (_status) => {
   return await Contact.find({ status: _status });
 };
+const getAssignedToByNameFromDB = async (_name) => {
+  return await Contact.find({ assignedTo: _name });
+};
+const updateCommentByID = async (_id, _newData) => {
+  const { fullName, imageURL, comment, date } = _newData;
+  await Contact.findByIdAndUpdate(
+    _id,
+    { $push: { comment: { fullName, imageURL, comment, date } } },
+    { new: true }
+  );
+  return await Contact.findById(_id);
+};
+const getCommentFromDB = async (_id) => {
+  return await Contact.findById(_id);
+};
 
 module.exports = {
   insertContactRequestToDB,
@@ -54,5 +69,8 @@ module.exports = {
   getTodayContactRequestFromDB,
   getByReferenceFromDB,
   getBySocialPlatformFromDB,
-  getByStatusFromDB
+  getByStatusFromDB,
+  getAssignedToByNameFromDB,
+  getCommentFromDB,
+  updateCommentByID
 };
