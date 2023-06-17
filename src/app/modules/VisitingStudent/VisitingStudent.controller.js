@@ -4,6 +4,7 @@ const {
   getVisitedStudentsFromDB,
   updateVisitingStudentByIDToDB,
   deleteVisitingStudentByIDToDB,
+  getTodayVisitingStudentFromDB,
 } = require("./VisitingStudent.service");
 
 const insertVisitingStudentInfo = async (req, res) => {
@@ -13,6 +14,7 @@ const insertVisitingStudentInfo = async (req, res) => {
 
     res.send({
       status: "success",
+      message: "Form Submitted Successfully",
       data: formInfo,
     });
   } catch (error) {
@@ -37,6 +39,24 @@ const getVisitedStudents = async (req, res) => {
     });
   }
 };
+
+
+const getTodayVisitingStudents = async (req, res) => {
+  try {
+    const todayRequest = await getTodayVisitingStudentFromDB();
+    res.send({
+      status: "success",
+      data: todayRequest,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to load today's contact request list",
+    });
+  }
+};
+
+
 
 const getVisitingStudentByID = async (req, res) => {
   const { id } = req.params;
@@ -96,6 +116,7 @@ module.exports = {
   insertVisitingStudentInfo,
   getVisitedStudents,
   getVisitingStudentByID,
+  getTodayVisitingStudents,
   updateVisitingStudentByID,
   deleteVisitingStudentByID,
 };

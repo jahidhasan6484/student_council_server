@@ -4,6 +4,7 @@ const {
   getUniversityByIDFromDB,
   deleteUniversityByIDFromDB,
   updateUniversityByIDFromDB,
+  getUniversityFromDB,
 } = require("./university.service");
 
 const insertUniversity = async (req, res) => {
@@ -17,20 +18,22 @@ const insertUniversity = async (req, res) => {
       await existingCountry.save();
 
       const data = University.findOne({ countryName });
+      const finalData = await getUniversityFromDB();
       return res.send({
         status: "success",
         message: "University added successfully",
-        data: data,
+        data: finalData,
       });
     } else {
       const universityData = { countryName, universities };
       await University.create(universityData);
 
       const data = University.findOne({ countryName });
+      const finalData = await getUniversityFromDB();
       return res.send({
         status: "success",
         message: "University added successfully",
-        data: data,
+        data: finalData,
       });
     }
   } catch (error) {
@@ -52,7 +55,7 @@ const getUniversity = async (req, res) => {
   } catch {
     res.send({
       status: "fail",
-      message: "Failed to load contact request list",
+      message: "Failed to load University list",
     });
   }
 };

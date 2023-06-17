@@ -27,7 +27,7 @@ const contactsSchema = mongoose.Schema(
       required: true,
     },
     proficiencyScore: {
-      type: Number,
+      type: String,
       required: true,
     },
     interestedCourseLevel: {
@@ -78,6 +78,14 @@ const contactsSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    status: {
+      type: String,
+      required: true
+    },
+    assignedTo: {
+      type: String,
+      required: false
+    }
   },
   {
     timestamps: true,

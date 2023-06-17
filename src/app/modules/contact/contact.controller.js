@@ -6,18 +6,18 @@ const {
   getByReferenceFromDB,
   getBySocialPlatformFromDB,
   updateContactByIDToDB,
+  getByStatusFromDB,
 } = require("./contact.service");
 
 const contactRequest = async (req, res) => {
   const data = req.body;
   try {
     await insertContactRequestToDB(data);
-
     res.send({
       status: "success",
       message: "A contact request has been sent",
     });
-  } catch {
+  } catch (error) {
     res.send({
       status: "fail",
       message: "Failed to send contact request",
@@ -125,6 +125,22 @@ const getBySocialPlatform = async (req, res) => {
     });
   }
 };
+const getByStatus = async (req, res) => {
+  const { status } = req.params;
+  try {
+    const statusData = await getByStatusFromDB(status);
+
+    res.send({
+      status: "success",
+      data: statusData,
+    });
+  } catch {
+    res.send({
+      status: "fail",
+      message: "Failed to load social data",
+    });
+  }
+};
 
 module.exports = {
   contactRequest,
@@ -134,4 +150,5 @@ module.exports = {
   getTodayContactRequest,
   getByReference,
   getBySocialPlatform,
+  getByStatus
 };

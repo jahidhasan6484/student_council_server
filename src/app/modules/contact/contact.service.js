@@ -18,7 +18,7 @@ const updateContactByIDToDB = async (_id, _newData) => {
     runValidators: true,
   });
 
-  return await Contact.find({});
+  return await Contact.findById(_id);
 };
 
 const getTodayContactRequestFromDB = async () => {
@@ -42,6 +42,9 @@ const getByReferenceFromDB = async (_ref) => {
 const getBySocialPlatformFromDB = async (_social) => {
   return await Contact.find({ socialPlatform: _social });
 };
+const getByStatusFromDB = async (_status) => {
+  return await Contact.find({ status: _status });
+};
 
 module.exports = {
   insertContactRequestToDB,
@@ -51,4 +54,5 @@ module.exports = {
   getTodayContactRequestFromDB,
   getByReferenceFromDB,
   getBySocialPlatformFromDB,
+  getByStatusFromDB
 };

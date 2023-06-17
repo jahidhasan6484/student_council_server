@@ -26,46 +26,46 @@ const visitingStudentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    permanentAddress: [
-      {
-        country: {
-          type: String,
-          required: true,
-        },
-        city: {
-          type: String,
-          required: true,
-        },
-        zipCode: {
-          type: String,
-          required: true,
-        },
-        streetAddress: {
-          type: String,
-          required: true,
-        },
+    permanentAddress:
+    {
+      country: {
+        type: String,
+        required: false,
       },
-    ],
-    mailingAddress: [
-      {
-        country: {
-          type: String,
-          required: true,
-        },
-        city: {
-          type: String,
-          required: true,
-        },
-        zipCode: {
-          type: String,
-          required: true,
-        },
-        streetAddress: {
-          type: String,
-          required: true,
-        },
+      city: {
+        type: String,
+        required: false,
       },
-    ],
+      zipCode: {
+        type: String,
+        required: false,
+      },
+      streetAddress: {
+        type: String,
+        required: false,
+      },
+    },
+
+    mailingAddress:
+    {
+      country: {
+        type: String,
+        required: false,
+      },
+      city: {
+        type: String,
+        required: false,
+      },
+      zipCode: {
+        type: String,
+        required: false,
+      },
+      streetAddress: {
+        type: String,
+        required: false,
+      },
+    },
+
     phone: {
       type: String,
       required: true,
@@ -84,7 +84,7 @@ const visitingStudentSchema = mongoose.Schema(
     },
     referredPerson: {
       type: String,
-      required: true,
+      required: false,
     },
     havePassport: {
       type: String,
@@ -92,115 +92,150 @@ const visitingStudentSchema = mongoose.Schema(
     },
     isPassportValid: {
       type: String,
-      required: true,
+      required: false,
     },
     visaDeniedCountry: {
-      type: Array,
+      type: String,
     },
     traveledCountry: {
-      type: Array,
+      type: String,
     },
-    guardianDetails: [
-      {
-        fullName: {
-          type: String,
-          required: true,
-        },
-        relationship: {
-          type: String,
-          required: true,
-        },
-        phone: {
-          type: String,
-          required: true,
-        },
-        whatsApp: {
-          type: String,
-          required: true,
-        },
-        email: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
-    qualification: [
-      {
+    guardianDetails:
+    {
+      fullName: {
         type: String,
-        required: true,
+        required: false,
       },
-    ],
+      relationship: {
+        type: String,
+        required: false,
+      },
+      phone: {
+        type: String,
+        required: false,
+      },
+      whatsApp: {
+        type: String,
+        required: false,
+      },
+      email: {
+        type: String,
+        required: false,
+      },
+    },
+
+    qualification:
+    {
+      institution: {
+        type: String,
+        required: false,
+      },
+      yearCompleted: {
+        type: String,
+        required: false,
+      },
+      result: {
+        type: String,
+        required: false,
+      },
+      stream: {
+        type: String,
+        required: false,
+      },
+      country: {
+        type: String,
+        required: false,
+      },
+      city: {
+        type: String,
+        required: false,
+      },
+
+    },
+
     additionalDegrees: {
       type: String,
-      required: true,
+      required: false,
     },
-    jobExperience: [
-      {
-        institute: {
-          type: String,
-          required: true,
-        },
-        position: {
-          type: String,
-          required: true,
-        },
-        dateOfJoining: {
-          type: String,
-          required: true,
-        },
-        country: {
-          type: String,
-          required: true,
-        },
-        city: {
-          type: String,
-          required: true,
-        },
+    jobExperience:
+    {
+      institute: {
+        type: String,
+        required: false,
       },
-    ],
+      position: {
+        type: String,
+        required: false,
+      },
+      dateOfJoining: {
+        type: String,
+        required: false,
+      },
+      country: {
+        type: String,
+        required: false,
+      },
+      city: {
+        type: String,
+        required: false,
+      },
+    },
+
     additionalComments: {
       type: String,
+      required: false,
+    },
+    englishProficiency:
+    {
+      proficiency: {
+        type: String,
+        required: false,
+      },
+      whereCompleted: {
+        type: String,
+        required: false,
+      },
+      whichInstitution: {
+        type: String,
+        required: false,
+      },
+      score: {
+        type: String,
+        required: false,
+      },
+      year: {
+        type: String,
+        required: false,
+      },
+      scheduled: {
+        type: String,
+        required: false,
+      },
+      country: {
+        type: String,
+        required: false,
+      },
+      comments: {
+        type: String,
+        required: false,
+      },
+    },
+
+    date: {
+      type: Number,
       required: true,
     },
-    englishProficiency: [
-      {
-        proficiency: {
-          type: String,
-          required: true,
-        },
-        whereCompleted: {
-          type: String,
-          required: true,
-        },
-        whichInstitution: {
-          type: String,
-          required: true,
-        },
-        score: {
-          type: String,
-          required: true,
-        },
-        year: {
-          type: String,
-          required: true,
-        },
-        scheduled: {
-          type: String,
-          required: true,
-        },
-        country: {
-          type: String,
-          required: true,
-        },
-        comments: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+    month: {
+      type: Number,
+      required: true,
+    },
+    year: {
+      type: Number,
+      required: true,
+    },
   },
   {
-    timestamps: true,
+    timestamps: false,
   }
 );
 
