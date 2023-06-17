@@ -6,6 +6,7 @@ const insertSingleImage = async (req, res) => {
     upload.single("image")(req, res, (err) => {
       const file = req.file;
       const { path, originalname } = file;
+      console.log(file);
       res.send({
         status: "success",
         message: "Image uploaded successfully",

@@ -57,6 +57,11 @@ const getExpoByID = async (req, res) => {
   }
 };
 
+
+
+
+
+
 const updateExpoByID = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
