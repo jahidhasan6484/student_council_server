@@ -1,4 +1,4 @@
-var validator = require("validator");
+const validator = require("validator");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
@@ -16,7 +16,9 @@ const {
   getProfileInfoByIdentifierFromDB,
   updateProfileInfoByIdentifierFromDB,
   getUserByIdentifierFromDB,
+  generatePassword,
 } = require("./user.service");
+const { sendUserNameAndPassword } = require("../../../../utils/sendEmail");
 
 const generateJWT = (_userID) => {
   const jwtKey = process.env.JWT_SECRET_KEY;
@@ -60,7 +62,12 @@ const registerUser = async (req, res) => {
       }
       userID = await generateAuthorityUserID(data?.fullName);
     }
-    const password = await bcrypt.hash(userID, saltRounds);
+
+    const genPass = await generatePassword();
+
+    console.log(genPass);
+
+    const password = await bcrypt.hash(genPass, saltRounds);
     const jwtToken = await generateJWT(userID);
 
     await registerUserToDB({
@@ -70,11 +77,14 @@ const registerUser = async (req, res) => {
       jwtToken,
     });
 
+    await sendUserNameAndPassword(data?.email, userID, genPass);
+
     const result = await getUsersFromDB();
 
     res.send({
       status: "success",
-      message: "User registered successfully",
+      message:
+        "User registered successfully, Login Credential has been sent on your email",
       data: result,
     });
   } catch (err) {

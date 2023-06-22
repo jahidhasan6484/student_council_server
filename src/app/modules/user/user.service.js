@@ -1,4 +1,6 @@
 const User = require("./user.model");
+const validator = require("validator");
+const generator = require("generate-password");
 
 const registerUserToDB = async (data) => {
   await User.create(data);
@@ -66,6 +68,22 @@ const generateUserID = async () => {
   return userId;
 };
 
+const generatePassword = async () => {
+  let password = "";
+
+  while (!validator.isStrongPassword(password)) {
+    password = generator.generate({
+      length: 8,
+      uppercase: true,
+      lowercase: true,
+      numbers: true,
+      symbols: true,
+    });
+  }
+
+  return password;
+};
+
 const generateAuthorityUserID = async (_fullName) => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -124,6 +142,7 @@ module.exports = {
   getUsersByRoleFromDB,
   generateUserID,
   generateAuthorityUserID,
+  generatePassword,
   getProfileInfoByIdentifierFromDB,
   updateProfileInfoByIdentifierFromDB,
 };
