@@ -47,6 +47,26 @@ const sendUserNameAndPassword = (_email, _userID, _password) => {
   });
 };
 
+const sendAlert = (_email, _text) => {
+  return new Promise((resolve, reject) => {
+    const mailOptions = {
+      from: "salmanshah11062019@gmail.com",
+      to: _email,
+      subject: "Notification Alert",
+      text: _text,
+    };
+
+    transport.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        reject({ status: "fail", error });
+      } else {
+        resolve({ status: "success", info });
+      }
+    });
+  });
+};
+
 module.exports = {
   sendUserNameAndPassword,
+  sendAlert,
 };

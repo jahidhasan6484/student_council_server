@@ -9,6 +9,7 @@ const {
   getProfileInfoByIdentifier,
   updateProfileInfoByIdentifier,
   getUserFullNameByUserID,
+  changePasswordByUserID,
 } = require("./user.controller");
 
 const router = express.Router();
@@ -24,5 +25,7 @@ router.get("/profile/:identifier", getProfileInfoByIdentifier);
 router.patch("/profile/:identifier", updateProfileInfoByIdentifier);
 
 router.get("/fullName/:userID", getUserFullNameByUserID);
+
+router.post("/change-password", changePasswordByUserID);
 
 module.exports = router;

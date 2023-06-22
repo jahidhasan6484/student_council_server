@@ -18,7 +18,10 @@ const {
   getUserByIdentifierFromDB,
   generatePassword,
 } = require("./user.service");
-const { sendUserNameAndPassword } = require("../../../../utils/sendEmail");
+const {
+  sendUserNameAndPassword,
+  sendAlert,
+} = require("../../../../utils/sendEmail");
 
 const generateJWT = (_userID) => {
   const jwtKey = process.env.JWT_SECRET_KEY;
@@ -252,6 +255,45 @@ const getUserFullNameByUserID = async (req, res) => {
   }
 };
 
+const changePasswordByUserID = async (req, res) => {
+  const { userID, oldPassword, newPassword } = req.body;
+  try {
+    const user = await User.findById(userID);
+
+    const isPasswordMatch = await bcrypt.compare(oldPassword, user?.password);
+    if (!isPasswordMatch) {
+      return res.send({
+        status: "fail",
+        message: "Old password is not correct",
+      });
+    }
+
+    if (!validator.isStrongPassword(newPassword)) {
+      return res.send({
+        status: "fail",
+        message: "Provided password is not strong",
+      });
+    }
+
+    const newHashPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    await User.findByIdAndUpdate(userID, { password: newHashPassword });
+
+    await sendAlert(user?.email, "Your password has been changed");
+
+    res.send({
+      status: "success",
+      message: "Password change successful",
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "fail",
+      message: "Failed to change password",
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   getUsers,
@@ -262,4 +304,5 @@ module.exports = {
   getProfileInfoByIdentifier,
   updateProfileInfoByIdentifier,
   getUserFullNameByUserID,
+  changePasswordByUserID,
 };
