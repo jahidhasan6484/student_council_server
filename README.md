@@ -4,7 +4,7 @@
 
 {
 "fullName": "Jahid Hasan",
-"email": "jahidhasan@studentcouncil.bd.edu",
+"email": "jahidhasan6484@gmail.com",
 "phoneNumber": "01718797522",
 "role": "student",
 "status": "active",
