@@ -16,6 +16,29 @@ const transport = nodemailer.createTransport({
   },
 });
 
+const sendOTP = async (_email) => {
+  const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+
+  const hashedOTP = await bcrypt.hash(otp, saltRounds);
+
+  return new Promise((resolve, reject) => {
+    const mailOptions = {
+      from: "salmanshah11062019@gmail.com",
+      to: _email,
+      subject: "Forget Password Request",
+      html: `Please enter <b>${otp}</b> as forget password request`,
+    };
+
+    transport.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        reject({ status: "fail", error });
+      } else {
+        resolve({ status: "success", hashedOTP });
+      }
+    });
+  });
+};
+
 const sendUserNameAndPassword = (_email, _userID, _password) => {
   return new Promise((resolve, reject) => {
     const mailOptions = {
@@ -67,6 +90,7 @@ const sendAlert = (_email, _text) => {
 };
 
 module.exports = {
+  sendOTP,
   sendUserNameAndPassword,
   sendAlert,
 };

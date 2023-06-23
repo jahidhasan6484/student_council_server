@@ -21,7 +21,9 @@ const {
 const {
   sendUserNameAndPassword,
   sendAlert,
+  sendOTP,
 } = require("../../../../utils/sendEmail");
+const OTP = require("../otp/otp.model");
 
 const generateJWT = (_userID) => {
   const jwtKey = process.env.JWT_SECRET_KEY;
@@ -294,6 +296,165 @@ const changePasswordByUserID = async (req, res) => {
   }
 };
 
+const forgetPasswordByUserID = async (req, res) => {
+  const { email } = req.body;
+  try {
+    if (!email) {
+      return res.send({
+        status: "fail",
+        message: "Empty email address",
+      });
+    }
+
+    const result = await sendOTP(email);
+
+    if (result?.status === "success") {
+      await OTP.create({
+        email,
+        otp: result?.hashedOTP,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + 3600000,
+      });
+    }
+
+    res.send({
+      status: "success",
+      message: "OTP sent successfully",
+    });
+  } catch (error) {
+    res.send({
+      status: "fail",
+      message: "Failed to resend OTP",
+    });
+  }
+};
+
+const verifyForgetOTPByUserID = async (req, res) => {
+  const { email, otp } = req.body;
+
+  try {
+    if (!email || !otp) {
+      return res.send({
+        status: "fail",
+        message: "Empty details are not allowed",
+      });
+    }
+
+    const forgetOTPRecords = await OTP.find({ email }).exec();
+
+    forgetOTPRecords.reverse();
+
+    if (forgetOTPRecords.length <= 0) {
+      return res.send({
+        status: "fail",
+        message: "There is no forget password request",
+      });
+    }
+
+    const { expiresAt } = forgetOTPRecords[0];
+    const hashedOTP = forgetOTPRecords[0]?.otp;
+
+    if (expiresAt < Date.now()) {
+      return res.send({
+        status: "fail",
+        message: "Forget OTP code has expired, please request again",
+      });
+    }
+
+    const isValidOTP = await bcrypt.compare(otp, hashedOTP);
+
+    if (!isValidOTP) {
+      return res.send({
+        status: "fail",
+        message: "Forget OTP is invalid",
+      });
+    }
+
+    await OTP.deleteMany({ email });
+
+    res.send({
+      status: "success",
+      message: "Forget password request approve",
+      isForgetOTPMatch: true,
+    });
+  } catch (error) {
+    res.send({
+      status: "fail",
+      message: "OTP not match, try again",
+      isForgetOTPMatch: false,
+    });
+  }
+};
+
+const updatePasswordByForgetOTP = async (req, res) => {
+  const { isForgetOTPMatch, email, newPassword } = req.body;
+
+  try {
+    if (!isForgetOTPMatch) {
+      return res.send({
+        status: "fail",
+        message: "You can't able to update password",
+      });
+    }
+
+    if (newPassword.length < 8) {
+      return res.send({
+        status: "fail",
+        message: "Password should have 8 characters",
+      });
+    }
+
+    if (!validator.isStrongPassword(newPassword)) {
+      return res.send({
+        status: "fail",
+        message:
+          "Please add at least one lowercase, uppercase, numbers, and symbols",
+      });
+    }
+
+    const newHashPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    // Update password with newHashPassword
+    await User.findOneAndUpdate({ email }, { password: newHashPassword });
+
+    res.send({
+      status: "success",
+      message: "Password updated successfully",
+    });
+  } catch (error) {
+    return res.send({
+      status: "fail",
+      message: "Failed to update password",
+    });
+  }
+};
+
+const resendOTP = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const result = await sendOTP(email);
+
+    if (result?.status === "success") {
+      await OTP.create({
+        email,
+        otp: result?.hashedOTP,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + 3600000,
+      });
+    }
+
+    res.send({
+      status: "success",
+      message: "OTP sent successfully",
+    });
+  } catch (error) {
+    res.send({
+      status: "fail",
+      message: "Failed to resend OTP",
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   getUsers,
@@ -305,4 +466,8 @@ module.exports = {
   updateProfileInfoByIdentifier,
   getUserFullNameByUserID,
   changePasswordByUserID,
+  forgetPasswordByUserID,
+  verifyForgetOTPByUserID,
+  updatePasswordByForgetOTP,
+  resendOTP,
 };

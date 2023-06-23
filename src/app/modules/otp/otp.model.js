@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userVerificationOTP = new mongoose.Schema({
+const forgetPasswordOTP = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -19,9 +19,6 @@ const userVerificationOTP = new mongoose.Schema({
   },
 });
 
-const UserVerificationOTP = mongoose.model(
-  "user_verification",
-  userVerificationOTP
-);
+const OTP = mongoose.model("otp", forgetPasswordOTP);
 
-module.exports = UserVerificationOTP;
+module.exports = OTP;
